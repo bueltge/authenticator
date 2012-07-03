@@ -14,7 +14,6 @@ if ( ! function_exists( 'add_filter' ) ) {
 	echo "Hi there! I'm just a part of plugin, not much I can do when called directly.";
 	exit;
 }
-require_once dirname( __FILE__) . '/inc/class-HTTP_Auth.php';
 require_once dirname( __FILE__) . '/inc/settings-api-helper/load.php';
 
 class Authenticator {
@@ -47,6 +46,8 @@ class Authenticator {
 	 */
 	public function __construct() {
 		
+		$this->load_classes();
+		
 		if ( ! isset( $GLOBALS['pagenow'] ) ||
 			 ! in_array( $GLOBALS['pagenow'], self :: $pagenows )
 			)
@@ -56,7 +57,22 @@ class Authenticator {
 		
 		self::$options = get_option( self::KEY, array() );
 	}
+	
+	/**
+	 * Returns array of features, also
+	 * Scans the plugins subfolder "/classes"
+	 *
+	 * @since   0.1
+	 * @return  void
+	 */
+	protected function load_classes() {
 
+		// load all files with the pattern class-*.php from the directory classes
+		foreach( glob( dirname( __FILE__ ) . '/inc/class-*.php' ) as $class )
+			require_once $class;
+		
+	}
+	
 	/**
 	 * init the settings api
 	 *
