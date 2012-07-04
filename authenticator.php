@@ -15,7 +15,10 @@ if ( ! function_exists( 'add_filter' ) ) {
 	exit;
 }
 require_once dirname( __FILE__ ) . '/inc/settings-api-helper/load.php';
+
 spl_autoload_register( array( 'Authenticator', 'load_classes' ) );
+register_uninstall_hook( __FILE__, array( 'Authenticator', 'uninstall' ) );
+add_action( 'init', array( 'Authenticator', 'init' ) );
 
 class Authenticator {
 
@@ -38,6 +41,18 @@ class Authenticator {
 	 * @var array
 	 */
 	protected static $options = array();
+
+	/**
+	 * run the plugin
+	 *
+	 * @since   1.1.0
+	 * @return  void
+	 */
+	public static function init() {
+
+		$authenticator = new authenticator();
+		$GLOBALS[ 'authenticator' ] = $authenticator;
+	}
 
 	/**
 	 * Constructor, init redirect on defined hooks
@@ -140,6 +155,32 @@ class Authenticator {
 
 	}
 
-} // end class
+	/**
+	 * uninstall routine
+	 *
+	 * @since   1.1.0
+	 * @global  $wpdb
+	 * @return  void
+	 */
+	public static function uninstall() {
+		global $wpdb;
 
-$authenticator = new authenticator();
+		ignore_user_abort( -1 );
+		if ( is_network_admin() && isset( $wpdb->blogs ) ) {
+			$blogs = $wpdb->get_results(
+				'SELECT blog_id FROM ' .
+					$wpdb->blogs,
+				ARRAY_A
+			);
+			foreach ( $blogs as $key => $row ) {
+				$id = ( int ) $row[ 'blog_id' ];
+				delete_blog_option( $id, self::KEY );
+			}
+
+			return;
+		}
+
+		delete_option( self::KEY );
+	}
+
+} // end class
