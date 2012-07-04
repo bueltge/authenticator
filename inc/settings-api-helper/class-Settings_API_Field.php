@@ -54,13 +54,6 @@ class Settings_API_Field {
 	protected $has_error = FALSE;
 
 	/**
-	 * field was invalid on the request before?
-	 *
-	 * @var bool
-	 */
-	protected $has_dispatched_error = FALSE;
-
-	/**
 	 * option key
 	 *
 	 * @var string
@@ -356,27 +349,15 @@ class Settings_API_Field {
 	}
 
 	/**
-	 * set an error from a request before
-	 *
-	 * @param string $message (Optional)
-	 * @return void
-	 */
-	public function set_error( $message = '' ) {
-
-		$this->has_dispatched_error = TRUE;
-	}
-
-	/**
 	 * prints a text-input fields
 	 *
 	 * @param array $args
 	 * @return void
 	 */
 	public function input_text( $args, $type = 'text' ) {
+
 		$atts = $this->build_atts( $args[ 'atts' ] );
 		echo $args[ 'html_before' ];
-		if ( $this->has_dispatched_error )
-			echo 'Bockmist';
 		?>
 		<input type="<?php echo $type; ?>" <?php echo $atts; ?> />
 		<?php

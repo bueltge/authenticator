@@ -87,10 +87,6 @@ class Settings_API_Helper {
 			array( $this, 'description' ),
 			$this->page
 		);
-		# the first parameter should get $this->page but this
-		# does not work as expected :/
-		# calling get_settings_errors() will inhibit the default error message
-		#$this->errors = get_settings_errors();
 
 	}
 
@@ -150,26 +146,7 @@ class Settings_API_Helper {
 				$this->option_key
 		);
 		$this->fields[] = $new_field;
-		$this->dispatch_error( $new_field );
-	}
 
-	/**
-	 * dispatches occured errors to the field
-	 *
-	 * @param Settings_API_Field
-	 * @return void
-	 */
-	protected function dispatch_error( $new_field ) {
-
-		if ( empty( $this->errors ) )
-			return;
-
-		$field_name = $new_field->get( 'name' );
-		foreach ( $this->errors as $error ) {
-
-			if ( $error[ 'code' ] == $field_name )
-				$new_field->set_error( $error[ 'message' ] );
-		}
 	}
 
 	/**
