@@ -14,7 +14,8 @@ if ( ! function_exists( 'add_filter' ) ) {
 	echo "Hi there! I'm just a part of plugin, not much I can do when called directly.";
 	exit;
 }
-require_once dirname( __FILE__) . '/inc/settings-api-helper/load.php';
+require_once dirname( __FILE__ ) . '/inc/settings-api-helper/load.php';
+spl_autoload_register( array( 'Authenticator', 'load_classes' ) );
 
 class Authenticator {
 
@@ -45,34 +46,16 @@ class Authenticator {
 	 * @return  void
 	 */
 	public function __construct() {
-		
-		$this->load_classes();
-		
+
 		if ( ! isset( $GLOBALS['pagenow'] ) ||
 			 ! in_array( $GLOBALS['pagenow'], self :: $pagenows )
 			)
 			add_action( 'template_redirect', array( __CLASS__, 'redirect' ) );
-		
+
 		add_action( 'admin_init', array( __CLASS__, 'init_settings' ) );
-		
 		self::$options = get_option( self::KEY, array() );
 	}
-	
-	/**
-	 * Returns array of features, also
-	 * Scans the plugins subfolder "/classes"
-	 *
-	 * @since   0.1
-	 * @return  void
-	 */
-	protected function load_classes() {
 
-		// load all files with the pattern class-*.php from the directory classes
-		foreach( glob( dirname( __FILE__ ) . '/inc/class-*.php' ) as $class )
-			require_once $class;
-		
-	}
-	
 	/**
 	 * init the settings api
 	 *
@@ -80,7 +63,7 @@ class Authenticator {
 	 * @return void
 	 */
 	public static function init_settings() {
-		
+
 		$settings = new Settings_API_Helper(
 			self::KEY,
 			'reading',
@@ -96,7 +79,7 @@ class Authenticator {
 			)
 		);
 	}
-	
+
 	/*
 	 * Get redirect to login-page, if user not logged in blogs of network and single install
 	 *
@@ -104,10 +87,10 @@ class Authenticator {
 	 * @retur  void
 	 */
 	public static function redirect() {
-		
+
 		if ( is_feed() && '1' === self::$options[ 'http_auth_feed' ] )
 			return self::http_auth_feed();
-		
+
 		/**
 		 * Checks if a user is logged in or has rights on the blog in multisite,
 		 * if not redirects them to the login page
@@ -115,7 +98,7 @@ class Authenticator {
 		$reauth = ! current_user_can( 'read' ) &&
 			function_exists('is_multisite') &&
 			is_multisite() ? TRUE : FALSE;
-		
+
 		if ( ! is_user_logged_in() || $reauth ) {
 			nocache_headers();
 			wp_redirect(
@@ -125,7 +108,7 @@ class Authenticator {
 			exit();
 		}
 	}
-	
+
 	/**
 	 * authenticate users requesting feeds via HTTP Basic auth
 	 *
@@ -133,13 +116,28 @@ class Authenticator {
 	 * @return  void
 	 */
 	protected static function http_auth_feed() {
-		
+
 		$auth = new HTTP_Auth( 'Feed of ' . get_bloginfo( 'name' ) );
 		$user = $auth->get_user();
 		$user = wp_authenticate( $user[ 'name'], $user[ 'pass' ] );
-		
+
 		if ( ! is_a( $user, 'WP_User' ) )
 			$auth->auth_required();
+	}
+
+	/**
+	 * autoloader
+	 *
+	 * @since   1.1.0
+	 * @param   string $class_name
+	 * @return  void
+	 */
+	public static function load_classes( $class_name ) {
+
+		$file_name = dirname( __FILE__ ) . '/inc/class-' . $class_name . '.php';
+		if ( file_exists( $file_name ) )
+			require_once $file_name;
+
 	}
 
 } // end class
