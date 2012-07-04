@@ -1,10 +1,10 @@
 # Authenticator
-Contributors: inpsyde, Bueltge, nullbyte
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6069955
-Tags: login, authentification, accessible, access, members,
-Requires at least: 1.5
-Tested up to: 3.5
-Stable tag: 1.0.0
+Contributors: inpsyde, Bueltge, nullbyte  
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6069955  
+Tags: login, authentification, accessible, access, members  
+Requires at least: 1.5  
+Tested up to: 3.5  
+Stable tag: 1.0.0  
 
 This plugin allows you to make your WordPress site accessible to logged in users only.
 
