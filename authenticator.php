@@ -136,7 +136,7 @@ class Authenticator {
 		$user = $auth->get_user();
 		$user = wp_authenticate( $user[ 'name'], $user[ 'pass' ] );
 
-		if ( ! is_a( $user, 'WP_User' ) )
+		if ( ! is_a( $user, 'WP_User' ) || ! user_can( $user, 'read' ) )
 			$auth->auth_required();
 	}
 
