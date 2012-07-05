@@ -50,6 +50,34 @@ if ( ! class_exists( 'HTTP_Auth' ) ) {
 				$this->user[ 'name' ] = $_SERVER[ 'PHP_AUTH_USER' ];
 				$this->user[ 'pass' ] = $_SERVER[ 'PHP_AUTH_PW' ];
 
+			} elseif ( isset( $_SERVER[ 'REDIRECT_HTTP_AUTHORIZATION' ] ) # apache may rename our variable
+			        || isset( $_SERVER[ 'HTTP_AUTHORIZATION' ] )
+			        || isset( $_ENV[ 'HTTP_AUTHORIZATION' ] )
+			) {
+				/**
+				 * work around for PHP-CGI systems
+				 * requires mod_rewirte and the rule
+				 * RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+				 * or if mod_setenvif is available
+				 * SetEnvIfNoCase ^Authorization$ "(.+)" HTTP_AUTHORIZATION=$1
+				 */
+				$auth_header = isset( $_SERVER[ 'HTTP_AUTHORIZATION' ] )
+					? $_SERVER[ 'HTTP_AUTHORIZATION' ]
+					: (
+						isset( $_SERVER[ 'REDIRECT_HTTP_AUTHORIZATION' ] )
+							? $_SERVER[ 'REDIRECT_HTTP_AUTHORIZATION' ]
+							: $_ENV[ 'HTTP_AUTHORIZATION' ]
+					  );
+				$user = array();
+				if ( preg_match( '~Basic\s+(.*)$~i', $auth_header, $user ) ) {
+					$user = explode( ':', base64_decode( $user[ 1 ] ) );
+					$this->user[ 'name' ] = ! empty( $user[ 0 ] )
+						? trim( $user[ 0 ] )
+						: '';
+					$this->user[ 'pass' ] = ! empty( $user[ 1 ] )
+						? trim( $user[ 1 ] )
+						: '';
+				}
 			} else {
 				$this->auth_required();
 			}
