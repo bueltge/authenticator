@@ -14,6 +14,9 @@ This plugin allows you to make your WordPress site accessible to logged in users
 = Requirements =
 * WordPress version 1.5 and later; current (01/2012) tested with 3.3* and 3.4-alpha
 * PHP 5.2*
+On PHP-CGI setups:
+* mod_setenvif or mod_rewrite (if you want to user HTTP-Authentication for feeds)
+
 
 
 == Installation ==
@@ -22,6 +25,53 @@ This plugin allows you to make your WordPress site accessible to logged in users
 3. Activate the plugin through the `Plugins` menu in WordPress
 
 or use the installer via backend of WordPress
+
+= On PHP-CGI setups =
+If you want to use HTTP-Authentication for feeds (available since 1.1.0 as a *optional* feature) you have to update your `.htaccess` file. If [mod_setenvif](http://httpd.apache.org/docs/2.0/mod/mod_setenvif.html) is available, add the following line to your `.htaccess`:
+
+```
+SetEnvIfNoCase ^Authorization$ "(.+)" HTTP_AUTHORIZATION=$1
+```
+
+Otherwise you need [mod_rewrite](http://httpd.apache.org/docs/current/mod/mod_rewrite.html) to be enabled. In this case you have to add the following line to your `.htaccess`:
+
+```
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+```
+
+In a typical Wordpress .htaccess it all looks like:
+
+```
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+RewriteRule . /index.php [L]
+</IfModule>
+```
+
+respectively in a multisite installation:
+
+```
+# BEGIN WordPress
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+
+# uploaded files
+RewriteRule ^files/(.+) wp-includes/ms-files.php?file=$1 [L]
+
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+RewriteRule . index.php [L]
+# END WordPress
+```
 
 == Other Notes ==
 = Licence =
