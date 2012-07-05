@@ -14,7 +14,9 @@ This plugin allows you to make your WordPress site accessible to logged in users
 ### Requirements
 * WordPress version 1.5 and later; current (01/2012) tested with 3.3* and 3.4-alpha
 * PHP 5.2*
+
 On PHP-CGI setups:
+
 * mod\_setenvif or mod\_rewrite (if you want to user HTTP-Authentication for feeds)
 
 
