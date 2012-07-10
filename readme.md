@@ -17,7 +17,7 @@ This plugin allows you to make your WordPress site accessible to logged in users
 
 On PHP-CGI setups:
 
-* `mod\_setenvif` or `mod\_rewrite` (if you want to user HTTP-Authentication for feeds)
+* `mod_setenvif` or `mod_rewrite` (if you want to user HTTP-Authentication for feeds)
 
 
 ## Installation
