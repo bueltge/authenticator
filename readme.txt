@@ -17,13 +17,13 @@ This plugin allows you to make your WordPress site accessible to logged in users
 
 On PHP-CGI setups:
 
-* mod_setenvif or mod_rewrite (if you want to user HTTP-Authentication for feeds)
+* `mod\_setenvif` or `mod\_rewrite` (if you want to user HTTP-Authentication for feeds)
 
 
 
 == Installation ==
 1. Unpack the download-package
-2. Upload folder include the file to the `/wp-content/plugins/` directory. 
+2. Upload folder include the file to the `/wp-content/plugins/` directory.
 3. Activate the plugin through the `Plugins` menu in WordPress
 
 or use the installer via backend of WordPress
