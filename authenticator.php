@@ -17,7 +17,7 @@ if ( ! function_exists( 'add_filter' ) ) {
 
 spl_autoload_register( array( 'Authenticator', 'load_classes' ) );
 register_uninstall_hook( __FILE__, array( 'Authenticator', 'uninstall' ) );
-add_action( 'init', array( 'Authenticator', 'init' ) );
+add_action( 'plugins_loaded', array( 'Authenticator', 'get_instance' ) );
 
 class Authenticator {
 
@@ -28,6 +28,13 @@ class Authenticator {
 	 * @const sring
 	 */
 	const KEY = 'authenticator_options';
+
+	/**
+	 * instance of self
+	 *
+	 * @var Authenticator
+	 */
+	private static $instance = NULL;
 
 	/**
 	 * Array for pages, there are checked for exclude the redirect
@@ -49,22 +56,24 @@ class Authenticator {
 	public $settings = NULL;
 
 	/**
-	 * run the plugin
+	 * get the instance
 	 *
 	 * @since   1.1.0
-	 * @return  void
+	 * @return  Authenticator
 	 */
-	public static function init() {
+	public static function get_instance() {
 
-		$authenticator = new authenticator();
-		$GLOBALS[ 'authenticator' ] = $authenticator;
+		if ( ! self::$instance instanceof self )
+			self::$instance = new self;
+
+		return self::$instance;
 	}
 
 	/**
 	 * Constructor, init redirect on defined hooks
 	 *
 	 * @since   0.4.0
-	 * @return  void
+	 * @return  Authenticator
 	 */
 	public function __construct() {
 
