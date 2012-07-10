@@ -14,7 +14,6 @@ if ( ! function_exists( 'add_filter' ) ) {
 	echo "Hi there! I'm just a part of plugin, not much I can do when called directly.";
 	exit;
 }
-require_once dirname( __FILE__ ) . '/inc/settings-api-helper/load.php';
 
 spl_autoload_register( array( 'Authenticator', 'load_classes' ) );
 register_uninstall_hook( __FILE__, array( 'Authenticator', 'uninstall' ) );
@@ -43,6 +42,13 @@ class Authenticator {
 	protected static $options = array();
 
 	/**
+	 * instance of settins handling class
+	 *
+	 * @var Authenticator_Settings
+	 */
+	public $settings = NULL;
+
+	/**
 	 * run the plugin
 	 *
 	 * @since   1.1.0
@@ -67,7 +73,7 @@ class Authenticator {
 			)
 			add_action( 'template_redirect', array( __CLASS__, 'redirect' ) );
 
-		add_action( 'admin_init', array( __CLASS__, 'init_settings' ) );
+		add_action( 'admin_init', array( $this, 'init_settings' ) );
 		self::$options = get_option( self::KEY, array() );
 	}
 
@@ -77,22 +83,9 @@ class Authenticator {
 	 * @since 1.1.0
 	 * @return void
 	 */
-	public static function init_settings() {
+	public function init_settings() {
 
-		$settings = new Settings_API_Helper(
-			self::KEY,
-			'reading',
-			__( 'Authenticator Options' ),
-			'' #maybe some usefull description
-		);
-		$settings->add_checkbox(
-			'http_auth_feed',
-			'Require HTTP-Auth (Basic) for feeds instead of the WP login form.',
-			array(
-				'default' => '0',
-				'value'   => '1'
-			)
-		);
+		$this->settings = new Authenticator_Settings();
 	}
 
 	/*
