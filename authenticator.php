@@ -105,8 +105,25 @@ class Authenticator {
 	 */
 	public static function redirect() {
 
-		if ( is_feed() && '1' === self::$options[ 'http_auth_feed' ] )
-			return self::http_auth_feed();
+		if ( is_feed() ) {
+			switch ( self::$options[ 'feed_authentication' ] ) {
+				case 'http' :
+					return self::http_auth_feed();
+				case 'token' :
+					if ( isset( $_GET[ self::$options[ 'auth_token' ] ] ) )
+						return;
+					$protocol = 'HTTP/1.1' ===  $_SERVER[ 'SERVER_PROTOCOL' ]
+						? 'HTTP/1.1'
+						: 'HTTP/1.0';
+					header( $protocol . ' 403 Forbidden' );
+					exit( '<h1>403 Forbidden</h1>' );
+
+				case 'none' :
+				default :
+					# nothing to do
+					break;
+			}
+		}
 
 		/**
 		 * Checks if a user is logged in or has rights on the blog in multisite,
