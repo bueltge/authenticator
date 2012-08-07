@@ -89,6 +89,7 @@ class Authenticator_Settings {
 		);
 
 		new Authenticator_Settings_UI();
+		new Authenticator_User_Profile();
 	}
 
 	/**
