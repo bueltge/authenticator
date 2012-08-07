@@ -7,6 +7,7 @@ Author:      Inpsyde GmbH
 Version:     1.0.1
 Author URI:  http://inpsyde.com/
 License:     GPLv3
+Textdomain:  authenticator
 */
 
 // check for uses in WP
@@ -28,6 +29,14 @@ class Authenticator {
 	 * @const sring
 	 */
 	const KEY = 'authenticator_options';
+
+	/**
+	 * textdomain
+	 *
+	 * @since 1.1.0
+	 * @const string
+	 */
+	const TEXTDOMAIN = 'authenticator';
 
 	/**
 	 * instance of self
@@ -77,6 +86,7 @@ class Authenticator {
 	 */
 	public function __construct() {
 
+		$this->localize();
 		if ( ! isset( $GLOBALS['pagenow'] ) ||
 			 ! in_array( $GLOBALS['pagenow'], self :: $pagenows )
 			)
@@ -84,6 +94,22 @@ class Authenticator {
 
 		add_action( 'admin_init', array( $this, 'init_settings' ) );
 		self::$options = get_option( self::KEY, array() );
+
+	}
+
+	/**
+	 * load the language files
+	 *
+	 * @since 1.1.0
+	 * @return void
+	 */
+	public function localize() {
+
+		load_plugin_textdomain(
+			'authenticator',
+			FALSE,
+			dirname( plugin_basename( __FILE__ ) )
+		);
 	}
 
 	/**

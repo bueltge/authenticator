@@ -56,14 +56,14 @@ class Authenticator_Settings {
 
 		add_settings_section(
 			$this->section,
-			'Authenticator Options',
+			__( 'Authenticator Options', Authenticator::TEXTDOMAIN ),
 			array( $this, 'description' ),
 			$this->page
 		);
 
 		add_settings_field(
 			'feed_authentication',
-			'What type of feed authentication you prefer?',
+			__( 'What type of feed authentication you prefer?', Authenticator::TEXTDOMAIN ),
 			array( $this, 'checkbox' ),
 			$this->page,
 			$this->section,
@@ -96,7 +96,7 @@ class Authenticator_Settings {
 				<?php checked( $current, 'none' ); ?>
 			/>
 			<label for="<?php echo $id . '_none'; ?>">
-				<?php _e( 'None (redirect to the login form if user is not logged in)', '' ); ?>
+				<?php _e( 'None (redirect to the login form if user is not logged in)', Authenticator::TEXTDOMAIN ); ?>
 			</label>
 			<br />
 			<input
@@ -107,7 +107,7 @@ class Authenticator_Settings {
 				<?php checked( $current, 'http' ); ?>
 			/>
 			<label for="<?php echo $id . '_http'; ?>">
-				<?php _e( 'HTTP Authentication (Basic) with Username/Password of your Wordpress account.', '' ); ?>
+				<?php _e( 'HTTP Authentication (Basic) with Username/Password of your Wordpress account.', Authenticator::TEXTDOMAIN ); ?>
 			</label>
 		</p>
 		<p>
@@ -121,7 +121,7 @@ class Authenticator_Settings {
 			<label for="<?php echo $id . '_token'; ?>">
 				<?php _e( 'Token Authentication.', '' ); ?>
 				<span class="description">
-					<?php _e( 'Append the following token as a parameter to the feed URL:', '' ); ?>
+					<?php _e( 'Append the following token as a parameter to the feed URL:', Authenticator::TEXTDOMAIN ); ?>
 				</span>
 			</label>
 			<br />
@@ -148,10 +148,10 @@ class Authenticator_Settings {
 					name="authenticator_regenerate_token"
 				/>
 				<label for="authenticator_regenerate_token">
-					<?php _e( 'Regenerate token.', '' ); ?>
+					<?php _e( 'Regenerate token.', Authenticator::TEXTDOMAIN ); ?>
 				</label>
 				<span class="description">
-					<?php _e( '(Note everyone will have to update the URL in its feedreader!)', '' ); ?>
+					<?php _e( '(Note everyone will have to update the URL in its feedreader!)', Authenticator::TEXTDOMAIN ); ?>
 				</span>
 				<?php
 			endif; ?>
@@ -160,7 +160,7 @@ class Authenticator_Settings {
 		if ( 'token' === $this->options[ 'feed_authentication' ] ) : ?>
 			<p class="description">
 				<?php printf(
-					__( 'Use the Token for every feed URL like so: %s', '' ),
+					__( 'Use the Token for every feed URL like so: %s', Authenticator::TEXTDOMAIN ),
 					'<code>' . get_bloginfo('rss2_url') . '?<span id="authenticator_token_example">' . $this->get_auth_token() . '</span></code>'
 				); ?>
 			</p>
