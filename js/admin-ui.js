@@ -42,6 +42,9 @@
 		replaceNewToken : function( newToken ) {
 			$( '#' + authenticatorUI.tokenFieldId )
 				.attr( 'value', newToken );
+
+			$( '#' + authenticatorUI.exampleURLTokenId )
+				.text( newToken );
 		}
 	}
 

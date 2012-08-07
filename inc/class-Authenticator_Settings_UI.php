@@ -67,6 +67,7 @@ class Authenticator_Settings_UI extends Authenticator_Settings {
 			'actionHook'           => 'regenerate_token',
 			'ajaxURL'              => admin_url( 'admin-ajax.php' ),
 			'tokenFieldId'         => 'authenticator_feed_token',
+			'exampleURLTokenId'    => 'authenticator_token_example',
 			'tokenCheckboxWrapper' => 'authenticator_regenerate_token_wrapper',
 			'tokenButtonId'        => 'authenticator_regenerate_token',
 			'tokenButtonMarkup'    =>

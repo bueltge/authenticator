@@ -16,7 +16,8 @@ class Authenticator_Settings {
 	 */
 	protected static $default_options = array(
 		'feed_authentication' => 'none',
-		'auth_token'          => ''
+		'auth_token'          => '',
+		'show_token_to_users' => '0'
 	);
 
 	/**
@@ -65,12 +66,25 @@ class Authenticator_Settings {
 		add_settings_field(
 			'feed_authentication',
 			__( 'What type of feed authentication you prefer?', Authenticator::TEXTDOMAIN ),
-			array( $this, 'checkbox' ),
+			array( $this, 'auth_checkbox' ),
 			$this->page,
 			$this->section,
 			array(
 				'id'        => 'feed_authentication',
 				'name'      => Authenticator::KEY . '[feed_authentication]',
+			)
+		);
+
+		add_settings_field(
+			'show_token_to_users',
+			__( 'Show auth token on the users profile settings page?', Authenticator::TEXTDOMAIN ),
+			array( $this, 'checkbox' ),
+			$this->page,
+			$this->section,
+			array(
+				'id'        => 'show_token_to_users',
+				'name'      => Authenticator::KEY . '[show_token_to_users]',
+				'label_for' => 'show_token_to_users'
 			)
 		);
 
@@ -83,7 +97,7 @@ class Authenticator_Settings {
 	 * @param array $attr
 	 * @return void
 	 */
-	public function checkbox( $attr ) {
+	public function auth_checkbox( $attr ) {
 
 		$id      = $attr[ 'id' ];
 		$name    = $attr[ 'name' ];
@@ -161,17 +175,49 @@ class Authenticator_Settings {
 			endif; ?>
 		</p>
 		<?php
-		if ( 'token' === $this->options[ 'feed_authentication' ] ) : ?>
+		if ( 'token' === $this->options[ 'feed_authentication' ] ) :
+			$example_url = add_query_arg( $this->options[ 'auth_token' ], '', get_bloginfo('rss2_url') );
+			#wrap the urlparameter with a span-element
+			$example_url = preg_replace(
+				'~^(.+[?|&])([a-z0-9]{32})$~',
+				'$1<span id="authenticator_token_example">$2</span>',
+				$example_url
+			);
+			?>
 			<p class="description">
 				<?php printf(
 					__( 'Use the Token for every feed URL like so: %s', Authenticator::TEXTDOMAIN ),
-					'<code>' . get_bloginfo('rss2_url') . '?<span id="authenticator_token_example">' . $this->get_auth_token() . '</span></code>'
+					'<code>' . $example_url . '</code>'
 				); ?>
 			</p>
 			<?php
 		endif;
-
 	}
+
+	/**
+	 * prints a checkbox
+	 *
+	 * @param array $attr
+	 * @return void
+	 */
+	public function checkbox( $attr ) {
+
+		$id      = $attr[ 'id' ];
+		$name    = $attr[ 'name' ];
+		$current = $this->options[ $id ];
+		?>
+		<input
+			type="checkbox"
+			name="<?php echo $name; ?>"
+			id="<?php echo $id; ?>"
+			value="1"
+			<?php checked( $current, '1' ); ?>
+		/>
+		<?php
+	}
+
+
+
 
 	/**
 	 * validate the input
@@ -204,7 +250,13 @@ class Authenticator_Settings {
 				break;
 		}
 
+		if ( ! isset( $request[ 'show_token_to_users' ] ) )
+			$request[ 'show_token_to_users' ] = '0';
+		else
+			$request[ 'show_token_to_users' ] = '1';
+
 		$request[ 'auth_token' ] = $this->get_auth_token();
+
 		return $request;
 	}
 
