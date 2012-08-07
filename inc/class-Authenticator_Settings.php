@@ -3,6 +3,7 @@
 /**
  * handles the settings for the authenticator plugin
  *
+ * @package Authenticator
  * @since 1.1.0
  */
 
@@ -72,6 +73,8 @@ class Authenticator_Settings {
 				'name'      => Authenticator::KEY . '[feed_authentication]',
 			)
 		);
+
+		new Authenticator_Settings_UI();
 	}
 
 	/**
@@ -141,15 +144,17 @@ class Authenticator_Settings {
 			/>
 			<?php
 			if ( 'token' === $this->options[ 'feed_authentication' ] ) : ?>
-				<input
-					type="checkbox"
-					id="authenticator_regenerate_token"
-					value="1"
-					name="authenticator_regenerate_token"
-				/>
-				<label for="authenticator_regenerate_token">
-					<?php _e( 'Regenerate token.', Authenticator::TEXTDOMAIN ); ?>
-				</label>
+				<span id="authenticator_regenerate_token_wrapper">
+					<input
+						type="checkbox"
+						id="authenticator_regenerate_token"
+						value="1"
+						name="authenticator_regenerate_token"
+					/>
+					<label for="authenticator_regenerate_token">
+						<?php _e( 'Regenerate token.', Authenticator::TEXTDOMAIN ); ?>
+					</label>
+				</span>
 				<span class="description">
 					<?php _e( '(Note everyone will have to update the URL in its feedreader!)', Authenticator::TEXTDOMAIN ); ?>
 				</span>
@@ -256,7 +261,6 @@ class Authenticator_Settings {
 	public function load_options() {
 
 		$options = get_option( Authenticator::KEY, '' );
-
 		if ( ! is_array( $options ) ) {
 			$this->options = self::$default_options;
 			$this->update_options();

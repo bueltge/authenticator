@@ -39,6 +39,30 @@ class Authenticator {
 	const TEXTDOMAIN = 'authenticator';
 
 	/**
+	 * Version
+	 *
+	 * @since 1.1.0
+	 * @const string
+	 */
+	const VERSION = '1.0.1';
+
+	/**
+	 * absolute path to this directory
+	 *
+	 * @since 1.1.0
+	 * @var string
+	 */
+	public static $dir = '';
+
+	/**
+	 * absolute URL to this directory
+	 *
+	 * @since 1.1.0
+	 * @var string
+	 */
+	public static $url = '';
+
+	/**
 	 * instance of self
 	 *
 	 * @var Authenticator
@@ -85,6 +109,9 @@ class Authenticator {
 	 * @return  Authenticator
 	 */
 	public function __construct() {
+
+		self::$dir = plugin_dir_path( __FILE__ );
+		self::$url = plugins_url( '', __FILE__ );
 
 		$this->localize();
 		if ( ! isset( $GLOBALS['pagenow'] ) ||
