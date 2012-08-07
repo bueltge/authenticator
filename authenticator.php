@@ -120,7 +120,7 @@ class Authenticator {
 			add_action( 'template_redirect', array( __CLASS__, 'redirect' ) );
 
 		add_action( 'admin_init', array( $this, 'init_settings' ) );
-		add_filter( 'authenticator_feed_token', array( $this, 'get_feed_token' ) );
+		add_filter( 'authenticator_get_options', array( $this, 'get_options' ) );
 		self::$options = get_option( self::KEY, array() );
 
 	}
@@ -217,13 +217,13 @@ class Authenticator {
 	}
 
 	/**
-	 * get the feed auth token
+	 * get the options
 	 *
 	 * @return string
 	 */
-	public function get_feed_token() {
+	public function get_options() {
 
-		return self::$options[ 'auth_token' ];
+		return self::$options;
 	}
 
 	/**
