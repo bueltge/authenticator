@@ -76,6 +76,8 @@ RewriteRule . index.php [L]
 ## Settings
 You can change the settings of Authenticator on Options → Reading. The settings refer to the behaviour of your blog's feeds. Should they be protected by HTTP-Authentication (not all Feed-Readers support this) or by an authentication token, which is simply add to your feed URL as Parameter. The third option is to keep everything in place. So Feed-URLs will be redirected to the login page if the user is not logged in (send no auth-cookie). 
 
+If you using token authentication, you can show the token to the blog users on their profile settings page by setting these option.
+
 ### HTTP Auth
 Users can gain access to the feed with their Username/Password. 
 
@@ -94,10 +96,10 @@ http://yourblog.com/?feed=rss2&ef05aa961a0c10dce006284213727730
 
 ## API
 ### Filters
-* ```authenticator_feed_token``` Whith this filter you have access to the current authentication-token: 
+* ```authenticator_get_options``` Whith this filter you have access to the current authentication-token: 
 ```php
 <?php
-$feed_token = apply_filters( 'authenticator_feed_token', '' );
+$authenticator_options = apply_filters( 'authenticator_get_options', array() );
 ```
 * ```authenticator_bypass_feed_auth``` gives you the posibillity to open the feeds for everyone. No authentication will be required then.
 ```php
