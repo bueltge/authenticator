@@ -73,6 +73,37 @@ RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 RewriteRule . index.php [L]
 # END WordPress
 ```
+## Settings
+You can change the settings of Authenticator on Options → Reading. The settings refer to the behaviour of your blog's feeds. Should they be protected by HTTP-Authentication (not all Feed-Readers support this) or by an authentication token, which is simply add to your feed URL as Parameter. The third option is to keep everything in place. So Feed-URLs will be redirected to the login page if the user is not logged in (send no auth-cookie). 
+
+### HTTP Auth
+Users can gain access to the feed with their Username/Password. 
+
+### Token Auth
+The plugin will generate a token automaticaly, when choosing this option. Copy this token and share it with the people who should have access to your feed. If your token is ```ef05aa961a0c10dce006284213727730``` the feed-URLs looks like so:
+```php
+# main feed
+http://yourblog.com/feed/?ef05aa961a0c10dce006284213727730
+
+#main comment feed 
+http://yourblog.com/comments/feed/?ef05aa961a0c10dce006284213727730
+
+#without permalinks
+http://yourblog.com/?feed=rss2&ef05aa961a0c10dce006284213727730
+```
+
+## API
+### Filters
+* ```authenticator_feed_token``` Whith this filter you have access to the current authentication-token: 
+```php
+<?php
+$feed_token = apply_filters( 'authenticator_feed_token', '' );
+```
+* ```authenticator_bypass_feed_auth``` gives you the posibillity to open the feeds for everyone. No authentication will be required then.
+```php
+<?php
+add_filter( 'authenticator_bypass_feed_auth', '__return_true' );
+```
 
 ## Other Notes
 ### Licence
@@ -86,6 +117,7 @@ The plugin comes with various translations, please refer to the [WordPress Codex
 ### 1.1.0
 * add http authentification for feeds
 * add settings for reading feed
+* add token auth for feeds
 
 ### 1.0.0 (01/20/2012)
 * fix in MU for redirect, also if the user have not an account
