@@ -88,7 +88,6 @@ class Authenticator_Settings {
 		$id      = $attr[ 'id' ];
 		$name    = $attr[ 'name' ];
 		$current = $this->options[ $id ];
-
 		?>
 		<p>
 			<input

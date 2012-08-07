@@ -120,6 +120,7 @@ class Authenticator {
 			add_action( 'template_redirect', array( __CLASS__, 'redirect' ) );
 
 		add_action( 'admin_init', array( $this, 'init_settings' ) );
+		add_filter( 'authenticator_feed_token', array( $this, 'get_feed_token' ) );
 		self::$options = get_option( self::KEY, array() );
 
 	}
@@ -159,6 +160,9 @@ class Authenticator {
 	public static function redirect() {
 
 		if ( is_feed() ) {
+			if ( TRUE === apply_filters( 'authenticator_bypass_feed_auth', FALSE ) )
+				return;
+
 			switch ( self::$options[ 'feed_authentication' ] ) {
 				case 'http' :
 					return self::http_auth_feed();
@@ -210,6 +214,16 @@ class Authenticator {
 
 		if ( ! is_a( $user, 'WP_User' ) || ! user_can( $user, 'read' ) )
 			$auth->auth_required();
+	}
+
+	/**
+	 * get the feed auth token
+	 *
+	 * @return string
+	 */
+	public function get_feed_token() {
+
+		return self::$options[ 'auth_token' ];
 	}
 
 	/**
