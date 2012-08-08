@@ -136,7 +136,7 @@ class Authenticator {
 		load_plugin_textdomain(
 			'authenticator',
 			FALSE,
-			dirname( plugin_basename( __FILE__ ) )
+			dirname( plugin_basename( __FILE__ ) ) . '/language'
 		);
 	}
 
