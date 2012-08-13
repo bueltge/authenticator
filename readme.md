@@ -94,6 +94,9 @@ http://yourblog.com/comments/feed/?ef05aa961a0c10dce006284213727730
 http://yourblog.com/?feed=rss2&ef05aa961a0c10dce006284213727730
 ```
 
+## Screenshots
+1. Authenticator's setting options at Settings → Reading
+
 ## API
 ### Filters
 * ```authenticator_get_options``` Whith this filter you have access to the current authentication-token: 

@@ -1,7 +1,7 @@
 === Authenticator ===
 Contributors: inpsyde, Bueltge, nullbyte
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6069955
-Tags: login, authentification, accessible, access, members,
+Tags: login, authentification, accessible, access, members
 Requires at least: 1.5
 Tested up to: 3.5
 Stable tag: 1.0.0
@@ -18,7 +18,6 @@ This plugin allows you to make your WordPress site accessible to logged in users
 On PHP-CGI setups:
 
 * `mod_setenvif` or `mod_rewrite` (if you want to user HTTP-Authentication for feeds)
-
 
 
 == Installation ==
@@ -74,6 +73,42 @@ RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 RewriteRule . index.php [L]
 # END WordPress
 ```
+== Settings ==
+You can change the settings of Authenticator on Options → Reading. The settings refer to the behaviour of your blog's feeds. Should they be protected by HTTP-Authentication (not all Feed-Readers support this) or by an authentication token, which is simply add to your feed URL as Parameter. The third option is to keep everything in place. So Feed-URLs will be redirected to the login page if the user is not logged in (send no auth-cookie).
+
+If you using token authentication, you can show the token to the blog users on their profile settings page by setting these option.
+
+= HTTP Auth =
+Users can gain access to the feed with their Username/Password.
+
+= Token Auth =
+The plugin will generate a token automaticaly, when choosing this option. Copy this token and share it with the people who should have access to your feed. If your token is ```ef05aa961a0c10dce006284213727730``` the feed-URLs looks like so:
+```php
+# main feed
+http://yourblog.com/feed/?ef05aa961a0c10dce006284213727730
+
+#main comment feed
+http://yourblog.com/comments/feed/?ef05aa961a0c10dce006284213727730
+
+#without permalinks
+http://yourblog.com/?feed=rss2&ef05aa961a0c10dce006284213727730
+```
+
+== Screenshots ==
+1. Authenticator's setting options at Settings → Reading
+
+== API ==
+= Filters =
+* ```authenticator_get_options``` Whith this filter you have access to the current authentication-token:
+```php
+<?php
+$authenticator_options = apply_filters( 'authenticator_get_options', array() );
+```
+* ```authenticator_bypass_feed_auth``` gives you the posibillity to open the feeds for everyone. No authentication will be required then.
+```php
+<?php
+add_filter( 'authenticator_bypass_feed_auth', '__return_true' );
+```
 
 == Other Notes ==
 = Licence =
@@ -87,6 +122,7 @@ The plugin comes with various translations, please refer to the [WordPress Codex
 = 1.1.0 =
 * add http authentification for feeds
 * add settings for reading feed
+* add token auth for feeds
 
 = 1.0.0 (01/20/2012) =
 * fix in MU for redirect, also if the user have not an account
@@ -101,6 +137,6 @@ The plugin comes with various translations, please refer to the [WordPress Codex
 * Fix for use plugin WP smaller 3.*
 * Also usable in mu-plugins folder
 
-= v0.3.0 (04/06/2011) =
+=  v0.3.0 (04/06/2011) =
 * Add check for rights to publish posts to use the plugin on Multisite Install; only users with this rights have acces to the blog of Mutlisite install
 * Small changes on code
