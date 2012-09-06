@@ -1,5 +1,5 @@
 === Authenticator ===
-Contributors: inpsyde, Bueltge, nullbyte
+Contributors: inpsyde, Bueltge, nullbyte, dnaber-de
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6069955
 Tags: login, authentification, accessible, access, members
 Requires at least: 1.5
@@ -11,6 +11,14 @@ This plugin allows you to make your WordPress site accessible to logged in users
 == Description ==
 This plugin allows you to make your WordPress site accessible to logged in users only. In other words to view your site they have to create / have an account in your site and be logged in. No configuration necessary, simply activating - thats all.
 
+= Made by [Inpsyde](http://inpsyde.com) &middot; We love WordPress =
+Have a look at the premium plugins in our [market](http://marketpress.com).
+
+= Bugs, technical hints or contribute =
+Please give me feedback, contribute and file technical bugs on [GitHub Repo](https://github.com/bueltge/Authenticator).
+
+
+== Installation ==
 = Requirements =
 * WordPress version 1.5 and later; current (01/2012) tested with 3.3* and 3.4-alpha
 * PHP 5.2*
@@ -19,8 +27,7 @@ On PHP-CGI setups:
 
 * `mod_setenvif` or `mod_rewrite` (if you want to user HTTP-Authentication for feeds)
 
-
-== Installation ==
+= Installation =
 1. Unpack the download-package
 2. Upload folder include the file to the `/wp-content/plugins/` directory.
 3. Activate the plugin through the `Plugins` menu in WordPress
