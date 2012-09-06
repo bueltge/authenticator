@@ -93,7 +93,10 @@ http://yourblog.com/?feed=rss2&ef05aa961a0c10dce006284213727730
 
 ## Screenshots
 1. Authenticator's setting options at Settings → Reading.
+![Screenshot of setting options at Settings → Reading](https://raw.github.com/bueltge/Authenticator/master/screenshot-1.png)
+
 2. Auth-Token for feeds is displayed on the users profile settings page.
+![Screenshot of Auth-Token for feeds is displayed on the users profile settings page](https://raw.github.com/bueltge/Authenticator/master/screenshot-1.png)
 
 ## API
 ### Filters
