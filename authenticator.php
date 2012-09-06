@@ -119,6 +119,9 @@ class Authenticator {
 			)
 			add_action( 'template_redirect', array( __CLASS__, 'redirect' ) );
 
+		# set cookie lifetime
+		add_filter( 'auth_cookie_expiration', array( $this, 'filter_cookie_lifetime' ) );
+
 		add_action( 'admin_init', array( $this, 'init_settings' ) );
 		add_filter( 'authenticator_get_options', array( $this, 'get_options' ) );
 		self::$options = get_option( self::KEY, array() );
@@ -214,6 +217,21 @@ class Authenticator {
 
 		if ( ! is_a( $user, 'WP_User' ) || ! user_can( $user, 'read' ) )
 			$auth->auth_required();
+	}
+
+	/**
+	 * get the cookie lifetime if set
+	 *
+	 * @wp-hook auth_cookie_expiration
+	 * @param int $default_lifetime
+	 * @return int
+	 */
+	public function filter_cookie_lifetime( $default_lifetime ) {
+
+		if ( ( int ) self::$options[ 'cookie_lifetime' ] > 0 )
+			return 60 * 60 * 24 * ( int ) self::$options[ 'cookie_lifetime' ];
+
+		return $default_lifetime;
 	}
 
 	/**
