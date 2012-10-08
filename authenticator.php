@@ -71,8 +71,9 @@ class Authenticator {
 
 	/**
 	 * Array for pages, there are checked for exclude the redirect
+	 * admin-ajax.php is handled separately
 	 */
-	public static $pagenows = array( 'wp-login.php', 'wp-register.php' );
+	public static $pagenows = array( 'wp-login.php', 'wp-register.php', 'admin-ajax.php' );
 
 	/**
 	 * options
@@ -118,6 +119,9 @@ class Authenticator {
 			 ! in_array( $GLOBALS['pagenow'], self :: $pagenows )
 			)
 			add_action( 'template_redirect', array( __CLASS__, 'redirect' ) );
+		elseif ( 'admin-ajax.php' == $GLOBALS[ 'pagenow' ] )
+			add_action( 'admin_init', array( __CLASS__, 'authenticate_ajax' ) );
+
 
 		# set cookie lifetime
 		add_filter( 'auth_cookie_expiration', array( $this, 'filter_cookie_lifetime' ) );
@@ -172,12 +176,7 @@ class Authenticator {
 				case 'token' :
 					if ( isset( $_GET[ self::$options[ 'auth_token' ] ] ) )
 						return;
-					$protocol = 'HTTP/1.1' ===  $_SERVER[ 'SERVER_PROTOCOL' ]
-						? 'HTTP/1.1'
-						: 'HTTP/1.0';
-					header( $protocol . ' 403 Forbidden' );
-					exit( '<h1>403 Forbidden</h1>' );
-
+					self::_exit_403();
 				case 'none' :
 				default :
 					# nothing to do
@@ -201,6 +200,28 @@ class Authenticator {
 			);
 			exit();
 		}
+	}
+
+	/**
+	 * checks for authenticated requests on the ajax-interface
+	 *
+	 * @wp_hook admin_init
+	 * @since 1.1.0
+	 * @return void
+	 */
+	public static function authenticate_ajax() {
+
+		/**
+		 * Checks if a user is logged in or has rights on the blog in multisite,
+		 * if not redirects them to the login page
+		 */
+		$reauth = ! current_user_can( 'read' ) &&
+			function_exists('is_multisite') &&
+			is_multisite() ? TRUE : FALSE;
+
+		if ( ! is_user_logged_in() || $reauth )
+			self::_exit_403();
+
 	}
 
 	/**
@@ -242,6 +263,21 @@ class Authenticator {
 	public function get_options() {
 
 		return self::$options;
+	}
+
+	/**
+	 * just exit
+	 *
+	 * @since 1.1.0
+	 * @return void
+	 */
+	public static function _exit_403() {
+
+		$protocol = 'HTTP/1.1' ===  $_SERVER[ 'SERVER_PROTOCOL' ]
+				? 'HTTP/1.1'
+				: 'HTTP/1.0';
+		header( $protocol . ' 403 Forbidden' );
+		exit( '<h1>403 Forbidden</h1>' );
 	}
 
 	/**
