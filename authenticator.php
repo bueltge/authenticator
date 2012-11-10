@@ -292,7 +292,6 @@ class Authenticator {
 		$file_name = dirname( __FILE__ ) . '/inc/class-' . $class_name . '.php';
 		if ( file_exists( $file_name ) )
 			require_once $file_name;
-
 	}
 
 	/**
@@ -304,7 +303,7 @@ class Authenticator {
 	 */
 	public static function uninstall() {
 		global $wpdb;
-
+		
 		ignore_user_abort( -1 );
 		if ( is_network_admin() && isset( $wpdb->blogs ) ) {
 			$blogs = $wpdb->get_results(

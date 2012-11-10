@@ -1,10 +1,9 @@
 <?php
-
 /**
  * shows the auth token on the user settings page
  *
  * @package Authenticator
- * @since 1.1.0
+ * @since   1.1.0
  */
 
 class Authenticator_User_Profile {
@@ -26,7 +25,7 @@ class Authenticator_User_Profile {
 	/**
 	 * Add cutom profile fields
 	 *
-	 * @param array $user
+	 * @param  array $user
 	 * @return void
 	 */
 	public function add_custom_profile_fields( $user ) {
@@ -38,7 +37,6 @@ class Authenticator_User_Profile {
 		  || ! user_can( $user, 'read' )
 		)
 			return;
-
 	?>
 		<h3><?php _e( 'Authenticator', Authenticator::TEXTDOMAIN ); ?></h3>
 

@@ -1,10 +1,9 @@
 <?php
-
 /**
  * Class to enhance the settings user interface with a bit javascript
  *
  * @package Authenticator
- * @since 1.1.0
+ * @since   1.1.0
  */
 
 class Authenticator_Settings_UI extends Authenticator_Settings {

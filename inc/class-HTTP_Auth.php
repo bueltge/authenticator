@@ -109,5 +109,7 @@ if ( ! class_exists( 'HTTP_Auth' ) ) {
 			echo '<h1>Authentication failed</h1>';
 			exit;
 		}
-	}
-}
+	
+	} // end class
+	
+} // end if class exists
