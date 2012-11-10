@@ -29,7 +29,7 @@ class Authenticator {
 	 * @const sring
 	 */
 	const KEY = 'authenticator_options';
-
+	
 	/**
 	 * textdomain
 	 *
@@ -129,7 +129,8 @@ class Authenticator {
 		add_action( 'admin_init', array( $this, 'init_settings' ) );
 		add_filter( 'authenticator_get_options', array( $this, 'get_options' ) );
 		self::$options = get_option( self::KEY, array() );
-
+		
+		add_action( 'init', array( $this, 'protect_upload' ) );
 	}
 
 	/**
@@ -157,7 +158,18 @@ class Authenticator {
 
 		$this->settings = new Authenticator_Settings();
 	}
-
+	
+	/**
+	 * Init to protect uploads
+	 * 
+	 * @since   10/11/2012
+	 * @return  void
+	 */
+	public function protect_upload() {
+		
+		$this->protect_uploads = new Authenticator_Protect_Upload();
+	}
+	
 	/*
 	 * Get redirect to login-page, if user not logged in blogs of network and single install
 	 *

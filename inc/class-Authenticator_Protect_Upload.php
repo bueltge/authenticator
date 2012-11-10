@@ -149,7 +149,7 @@ class Authenticator_Protect_Upload {
 		
 		// Make a timestamp for our most recent modification...
 		$modified_timestamp = strtotime( $last_modified );
-
+		
 		if ( ( $client_last_modified && $client_etag )
 			? ( ( $client_modified_timestamp >= $modified_timestamp) && ( $client_etag == $etag ) )
 			: ( ( $client_modified_timestamp >= $modified_timestamp) || ( $client_etag == $etag ) )
@@ -157,10 +157,11 @@ class Authenticator_Protect_Upload {
 			status_header( 304 );
 			exit;
 		}
-
+		
 		// If we made it this far, just serve the file
 		readfile( $file );
 		die();
 	}
 	
 } // end class
+
