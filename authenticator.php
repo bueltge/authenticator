@@ -272,7 +272,7 @@ class Authenticator {
 	 * @return void
 	 */
 	public static function _exit_403() {
-
+		
 		$protocol = 'HTTP/1.1' ===  $_SERVER[ 'SERVER_PROTOCOL' ]
 				? 'HTTP/1.1'
 				: 'HTTP/1.0';
@@ -288,7 +288,7 @@ class Authenticator {
 	 * @return  void
 	 */
 	public static function load_classes( $class_name ) {
-
+		
 		$file_name = dirname( __FILE__ ) . '/inc/class-' . $class_name . '.php';
 		if ( file_exists( $file_name ) )
 			require_once $file_name;
