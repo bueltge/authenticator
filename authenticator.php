@@ -29,7 +29,7 @@ class Authenticator {
 	 * @const sring
 	 */
 	const KEY = 'authenticator_options';
-	
+
 	/**
 	 * textdomain
 	 *
@@ -129,7 +129,7 @@ class Authenticator {
 		add_action( 'admin_init', array( $this, 'init_settings' ) );
 		add_filter( 'authenticator_get_options', array( $this, 'get_options' ) );
 		self::$options = get_option( self::KEY, array() );
-		
+
 		add_action( 'init', array( $this, 'protect_upload' ) );
 	}
 
@@ -158,18 +158,18 @@ class Authenticator {
 
 		$this->settings = new Authenticator_Settings();
 	}
-	
+
 	/**
 	 * Init to protect uploads
-	 * 
+	 *
 	 * @since   10/11/2012
 	 * @return  void
 	 */
 	public function protect_upload() {
-		
+
 		$this->protect_uploads = new Authenticator_Protect_Upload();
 	}
-	
+
 	/*
 	 * Get redirect to login-page, if user not logged in blogs of network and single install
 	 *
@@ -200,11 +200,7 @@ class Authenticator {
 		 * Checks if a user is logged in or has rights on the blog in multisite,
 		 * if not redirects them to the login page
 		 */
-		$reauth = ! current_user_can( 'read' ) &&
-			function_exists('is_multisite') &&
-			is_multisite() ? TRUE : FALSE;
-
-		if ( ! is_user_logged_in() || $reauth ) {
+		if ( ! self::authenticate_user() ) {
 			nocache_headers();
 			wp_redirect(
 				wp_login_url( $_SERVER[ 'REQUEST_URI' ], $reauth ),
@@ -212,6 +208,24 @@ class Authenticator {
 			);
 			exit();
 		}
+	}
+
+	/**
+	 * checks if the current visitor is logged in and has the
+	 * permisson to 'read' this blog
+	 *
+	 * @since 1.1.0
+	 * @return bool
+	 */
+	public static function authenticate_user() {
+
+		# user must reauth when we are in multisite
+		# and he has not the permission to 'read'
+		$reauth = ! current_user_can( 'read' ) &&
+			function_exists( 'is_multisite' ) &&
+			is_multisite() ? TRUE : FALSE;
+
+		return is_user_logged_in() && ! $reauth;
 	}
 
 	/**
@@ -223,17 +237,8 @@ class Authenticator {
 	 */
 	public static function authenticate_ajax() {
 
-		/**
-		 * Checks if a user is logged in or has rights on the blog in multisite,
-		 * if not redirects them to the login page
-		 */
-		$reauth = ! current_user_can( 'read' ) &&
-			function_exists('is_multisite') &&
-			is_multisite() ? TRUE : FALSE;
-
-		if ( ! is_user_logged_in() || $reauth )
+		if ( ! self::authenticate_user() )
 			self::_exit_403();
-
 	}
 
 	/**
@@ -284,7 +289,7 @@ class Authenticator {
 	 * @return void
 	 */
 	public static function _exit_403() {
-		
+
 		$protocol = 'HTTP/1.1' ===  $_SERVER[ 'SERVER_PROTOCOL' ]
 				? 'HTTP/1.1'
 				: 'HTTP/1.0';
@@ -300,7 +305,7 @@ class Authenticator {
 	 * @return  void
 	 */
 	public static function load_classes( $class_name ) {
-		
+
 		$file_name = dirname( __FILE__ ) . '/inc/class-' . $class_name . '.php';
 		if ( file_exists( $file_name ) )
 			require_once $file_name;
@@ -315,7 +320,7 @@ class Authenticator {
 	 */
 	public static function uninstall() {
 		global $wpdb;
-		
+
 		ignore_user_abort( -1 );
 		if ( is_network_admin() && isset( $wpdb->blogs ) ) {
 			$blogs = $wpdb->get_results(
