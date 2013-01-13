@@ -18,7 +18,8 @@ class Authenticator_Settings {
 		'feed_authentication' => 'none',
 		'auth_token'          => '',
 		'show_token_to_users' => '0',
-		'cookie_lifetime'     => '0'
+		'cookie_lifetime'     => '0',
+		'disable_xmlrpc'      => '1'
 	);
 
 	/**
@@ -100,6 +101,20 @@ class Authenticator_Settings {
 				'name'      => Authenticator::KEY . '[cookie_lifetime]',
 				'label_for' => 'cookie_lifetime',
 				'notice'    => __( 'User will be logged in for this time', Authenticator::TEXTDOMAIN )
+			)
+		);
+
+		add_settings_field(
+			'disable_xmlrpc',
+			__( 'Disable XMLRPC Interface?', Authenticator::TEXTDOMAIN ),
+			array( $this, 'checkbox' ),
+			$this->page,
+			$this->section,
+			array(
+				'id'        => 'disable_xmlrpc',
+				'name'      => Authenticator::KEY . '[disable_xmlrpc]',
+				'label_for' => 'disable_xmlrpc',
+				#'notice'    => __( 'User will be logged in for this time', Authenticator::TEXTDOMAIN )
 			)
 		);
 
@@ -302,6 +317,11 @@ class Authenticator_Settings {
 		$request[ 'auth_token' ] = $this->get_auth_token();
 
 		$request[ 'cookie_lifetime' ] = ( int ) $request[ 'cookie_lifetime' ];
+
+		if ( empty( $request[ 'disable_xmlrpc' ] ) )
+			$request[ 'disable_xmlrpc' ] = '0';
+		else
+			$request[ 'disable_xmlrpc' ] = '1';
 
 
 		return $request;
