@@ -131,6 +131,7 @@ class Authenticator {
 		self::$options = get_option( self::KEY, array() );
 
 		add_action( 'init', array( $this, 'protect_upload' ) );
+		add_action( 'init', array( $this, 'disable_xmlrpc' ) );
 	}
 
 	/**
@@ -270,6 +271,20 @@ class Authenticator {
 			return 60 * 60 * 24 * ( int ) self::$options[ 'cookie_lifetime' ];
 
 		return $default_lifetime;
+	}
+
+	/**
+	 * disable_xmlrpc dependend to the setting
+	 *
+	 * @since 1.1.0
+	 * @wp-hook init
+	 * @return void
+	 */
+	public function disable_xmlrpc() {
+
+		if ( ! self::authenticate_user() || '1' === self::$options[ 'disable_xmlrpc' ]  )
+			return add_filter( 'xmlrpc_enabled', '__return_false' );
+
 	}
 
 	/**
