@@ -114,7 +114,7 @@ class Authenticator_Settings {
 				'id'        => 'disable_xmlrpc',
 				'name'      => Authenticator::KEY . '[disable_xmlrpc]',
 				'label_for' => 'disable_xmlrpc',
-				#'notice'    => __( 'User will be logged in for this time', Authenticator::TEXTDOMAIN )
+				'notice'    => __( 'This setting will disable the interface even for logged in users.', Authenticator::TEXTDOMAIN )
 			)
 		);
 
