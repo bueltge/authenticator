@@ -116,6 +116,9 @@ class Authenticator {
 
 		$this->localize();
 
+		// allow other plugins to change the list of excluded (non redirected) urls
+		self::$exclude_pagenows = apply_filters( 'authenticator_exclude_pagenows', self::$exclude_pagenows );
+
 		if ( ! isset( $GLOBALS['pagenow'] ) ||
 			 ! in_array( $GLOBALS['pagenow'], self::$exclude_pagenows )
 			)
