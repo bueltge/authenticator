@@ -44,7 +44,7 @@ class Authenticator {
 	 * @since 1.1.0
 	 * @const string
 	 */
-	const VERSION = '1.1.0+';
+	const VERSION = '1.1.0 Beta 2';
 
 	/**
 	 * absolute path to this directory
