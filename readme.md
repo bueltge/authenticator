@@ -79,7 +79,7 @@ If you using token authentication, you can show the token to the blog users on t
 Users can gain access to the feed with their Username/Password. 
 
 ### Token Auth
-The plugin will generate a token automaticaly, when choosing this option. Copy this token and share it with the people who should have access to your feed. If your token is ```ef05aa961a0c10dce006284213727730``` the feed-URLs looks like so:
+The plugin will generate a token automaticaly, when choosing this option. Copy this token and share it with the people who should have access to your feed. If your token is `ef05aa961a0c10dce006284213727730` the feed-URLs looks like so:
 ```php
 # main feed
 http://yourblog.com/feed/?ef05aa961a0c10dce006284213727730
@@ -100,16 +100,17 @@ http://yourblog.com/?feed=rss2&ef05aa961a0c10dce006284213727730
 
 ## API
 ### Filters
-* ```authenticator_get_options``` Whith this filter you have access to the current authentication-token: 
+* `authenticator_get_options` Whith this filter you have access to the current authentication-token: 
 ```php
 <?php
 $authenticator_options = apply_filters( 'authenticator_get_options', array() );
 ```
-* ```authenticator_bypass_feed_auth``` gives you the posibillity to open the feeds for everyone. No authentication will be required then.
+* `authenticator_bypass_feed_auth` gives you the posibillity to open the feeds for everyone. No authentication will be required then.
 ```php
 <?php
 add_filter( 'authenticator_bypass_feed_auth', '__return_true' );
 ```
+* `authenticator_exclude_pagenows` Pass an array of `$GLOBALS[ 'pagenow' ]` values to it, to exclude several WordPress pages from redirecting to the login page.
 
 ## Other Notes
 ### Bugs, technical hints or contribute
