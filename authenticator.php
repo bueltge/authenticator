@@ -73,7 +73,7 @@ class Authenticator {
 	 * Array for pages, there are checked for exclude the redirect
 	 * admin-ajax.php is handled separately
 	 */
-	public static $pagenows = array( 'wp-login.php', 'wp-register.php', 'admin-ajax.php' );
+	public static $exclude_pagenows = array( 'wp-login.php', 'wp-register.php', 'admin-ajax.php' );
 
 	/**
 	 * options
@@ -115,8 +115,9 @@ class Authenticator {
 		self::$url = plugins_url( '', __FILE__ );
 
 		$this->localize();
+
 		if ( ! isset( $GLOBALS['pagenow'] ) ||
-			 ! in_array( $GLOBALS['pagenow'], self :: $pagenows )
+			 ! in_array( $GLOBALS['pagenow'], self::$exclude_pagenows )
 			)
 			add_action( 'template_redirect', array( __CLASS__, 'redirect' ) );
 		elseif ( 'admin-ajax.php' == $GLOBALS[ 'pagenow' ] )
@@ -283,7 +284,7 @@ class Authenticator {
 	public function disable_xmlrpc() {
 
 		if ( ! self::authenticate_user() || '1' === self::$options[ 'disable_xmlrpc' ]  )
-			return add_filter( 'xmlrpc_enabled', '__return_false' );
+			add_filter( 'xmlrpc_enabled', '__return_false' );
 
 	}
 
