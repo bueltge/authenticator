@@ -18,7 +18,8 @@ if ( ! function_exists( 'add_filter' ) ) {
 
 spl_autoload_register( array( 'Authenticator', 'load_classes' ) );
 register_uninstall_hook( __FILE__, array( 'Authenticator', 'uninstall' ) );
-add_action( 'plugins_loaded', array( 'Authenticator', 'get_instance' ) );
+//start on a lower priority to allow other plugins to place their hooks to the Authenticator-API
+add_action( 'plugins_loaded', array( 'Authenticator', 'get_instance' ), 11 );
 
 class Authenticator {
 
