@@ -256,6 +256,13 @@ class Authenticator {
 		 * if not redirects them to the login page
 		 */
 		if ( ! self::authenticate_user() && ( ! is_singular() || ! in_array( get_the_title(), self::$exclude_posts ) ) ) {
+			$reauth =
+				   ! current_user_can( 'read' )
+				&& function_exists( 'is_multisite' )
+				&& is_multisite()
+					? TRUE
+					: FALSE;
+
 			nocache_headers();
 			wp_redirect(
 				wp_login_url( $_SERVER[ 'REQUEST_URI' ], $reauth ),
