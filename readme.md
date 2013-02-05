@@ -112,6 +112,11 @@ add_filter( 'authenticator_bypass_feed_auth', '__return_true' );
 ```
 * `authenticator_exclude_pagenows` Pass an array of `$GLOBALS[ 'pagenow' ]` values to it, to exclude several WordPress pages from redirecting to the login page.
 
+* `authenticator_exclude_ajax_actions` AJAX-Actions (independend of `_nopriv`) which should not be authenticated (remain open for everyone)
+
+* `authenticator_exclude_posts` List of post-titles which should remain public.
+
+
 ## Other Notes
 ### Bugs, technical hints or contribute
 Please give me feedback, contribute and file technical bugs on [GitHub Repo](https://github.com/bueltge/Authenticator).

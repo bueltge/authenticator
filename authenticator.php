@@ -4,7 +4,7 @@ Plugin Name: Authenticator
 Plugin URI:  http://bueltge.de/authenticator-wordpress-login-frontend-plugin/721/
 Description: This plugin allows you to make your WordPress site accessible to logged in users only. In other words to view your site they have to create / have an account in your site and be logged in. No configuration necessary, simply activating - thats all.
 Author:      Inpsyde GmbH
-Version:     1.1.0 Beta 2
+Version:     1.1.0 Beta 3
 Author URI:  http://inpsyde.com/
 License:     GPLv3
 Textdomain:  authenticator
@@ -73,7 +73,22 @@ class Authenticator {
 	 * Array for pages, there are checked for exclude the redirect
 	 * admin-ajax.php is handled separately
 	 */
-	public static $exclude_pagenows = array( 'wp-login.php', 'wp-register.php', 'admin-ajax.php' );
+	public static $exclude_pagenows = array( 'wp-login.php', 'wp-register.php' );
+
+	/**
+	 * Array for posts (post_title), there are checked for exclude the redirect
+	 * Used for custom login formulars, default is empty
+	 *
+	 * @since 1.1.0
+	 */
+	public static $exclude_posts = array();
+
+	/**
+	 * Array for actions, which are allowed with wp-ajax
+	 *
+	 * @since 1.1.0
+	 */
+	public static $exclude_ajax_actions = array();
 
 	/**
 	 * options
@@ -119,13 +134,18 @@ class Authenticator {
 		// allow other plugins to change the list of excluded (non redirected) urls
 		self::$exclude_pagenows = apply_filters( 'authenticator_exclude_pagenows', self::$exclude_pagenows );
 
-		if ( ! isset( $GLOBALS['pagenow'] ) ||
-			 ! in_array( $GLOBALS['pagenow'], self::$exclude_pagenows )
-			)
-			add_action( 'template_redirect', array( __CLASS__, 'redirect' ) );
-		elseif ( 'admin-ajax.php' == $GLOBALS[ 'pagenow' ] )
-			add_action( 'admin_init', array( __CLASS__, 'authenticate_ajax' ) );
+		// allow other plugins to change the list of excluded (non redirected) urls
+		self::$exclude_posts = apply_filters( 'authenticator_exclude_posts', self::$exclude_posts );
 
+		// allow other plugins to change the list of excluded (non redirected) ajax actions
+		self::$exclude_ajax_actions = apply_filters( 'authenticator_exclude_ajax_actions', self::$exclude_ajax_actions );
+
+		// check if the user needs to authenticate
+		$authenticate_method = $this->get_authenticate_method();
+		if ( 'redirect' == $authenticate_method )
+			add_action( 'template_redirect', array( __CLASS__, $authenticate_method ) );
+		elseif ( 'authenticate_ajax' == $authenticate_method )
+			add_action( 'admin_init', array( __CLASS__, $authenticate_method ) );
 
 		# set cookie lifetime
 		add_filter( 'auth_cookie_expiration', array( $this, 'filter_cookie_lifetime' ) );
@@ -136,6 +156,36 @@ class Authenticator {
 
 		add_action( 'init', array( $this, 'protect_upload' ) );
 		add_action( 'init', array( $this, 'disable_xmlrpc' ) );
+	}
+
+	/**
+	 * get the method to authenticate or NULL
+	 * if no authentication is required
+	 *
+	 * @since 1.1.0
+	 * @global $pagenow
+	 * @return string|NULL
+	 */
+	public function get_authenticate_method() {
+
+		if ( ! isset( $GLOBALS[ 'pagenow' ] ) )
+			return 'redirect';
+
+		//shorthand
+		$p = $GLOBALS[ 'pagenow' ];
+
+		// exclude some pagenows ?
+		if ( in_array( $p, self::$exclude_pagenows ) )
+			return;
+
+		if ( 'admin-ajax.php' == $p ) {
+			if ( isset( $_REQUEST[ 'action' ] ) && in_array( $_REQUEST[ 'action' ], self::$exclude_ajax_actions ) )
+				return;
+			else
+				return 'authenticate_ajax';
+		}
+
+		return 'redirect';
 	}
 
 	/**
@@ -205,7 +255,7 @@ class Authenticator {
 		 * Checks if a user is logged in or has rights on the blog in multisite,
 		 * if not redirects them to the login page
 		 */
-		if ( ! self::authenticate_user() ) {
+		if ( ! self::authenticate_user() && ( ! is_singular() || ! in_array( get_the_title(), self::$exclude_posts ) ) ) {
 			nocache_headers();
 			wp_redirect(
 				wp_login_url( $_SERVER[ 'REQUEST_URI' ], $reauth ),
