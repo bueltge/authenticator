@@ -1,5 +1,5 @@
 === Authenticator ===
-Contributors: inpsyde, Bueltge, nullbyte
+Contributors: Bueltge, nullbyte, inpsyde, dnaber-de
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6069955
 Tags: login, authentification, accessible, access, members
 Requires at least: 1.5
@@ -11,13 +11,18 @@ This plugin allows you to make your WordPress site accessible to logged in users
 == Description ==
 This plugin allows you to make your WordPress site accessible to logged in users only. In other words to view your site they have to create / have an account in your site and be logged in. No configuration necessary, simply activating - thats all.
 
+**Made by [Inpsyde](http://inpsyde.com) &middot; We love WordPress**
+
+Have a look at the premium plugins in our [market](http://marketpress.com).
+
 = Requirements =
-* WordPress version 1.5 and later; current (05/2013) tested with 3.5* and 3.5-Beta3
-* PHP 5.2*
+ * WordPress version 1.5 and later; current (05/2013) tested with 3.5* and 3.5-Beta3
+ * PHP 5.2*
+ * Single or Multisite installation
 
 On PHP-CGI setups:
 
-* `mod_setenvif` or `mod_rewrite` (if you want to user HTTP-Authentication for feeds)
+ * `mod_setenvif` or `mod_rewrite` (if you want to user HTTP-Authentication for feeds)
 
 
 == Installation ==
@@ -120,7 +125,7 @@ The plugin comes with various translations, please refer to the [WordPress Codex
 
 
 == Changelog ==
-= 1.1.0 =
+= 1.1.0 (05/23/2013) =
 * add http authentification for feeds
 * add settings for reading feed
 * add token auth for feeds
