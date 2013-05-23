@@ -3,8 +3,8 @@ Contributors: inpsyde, Bueltge, nullbyte
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6069955
 Tags: login, authentification, accessible, access, members
 Requires at least: 1.5
-Tested up to: 3.5
-Stable tag: 1.0.0
+Tested up to: 3.6-Beta3
+Stable tag: 1.1.0
 
 This plugin allows you to make your WordPress site accessible to logged in users only.
 
@@ -12,7 +12,7 @@ This plugin allows you to make your WordPress site accessible to logged in users
 This plugin allows you to make your WordPress site accessible to logged in users only. In other words to view your site they have to create / have an account in your site and be logged in. No configuration necessary, simply activating - thats all.
 
 = Requirements =
-* WordPress version 1.5 and later; current (01/2012) tested with 3.3* and 3.4-alpha
+* WordPress version 1.5 and later; current (05/2013) tested with 3.5* and 3.5-Beta3
 * PHP 5.2*
 
 On PHP-CGI setups:
@@ -124,6 +124,7 @@ The plugin comes with various translations, please refer to the [WordPress Codex
 * add http authentification for feeds
 * add settings for reading feed
 * add token auth for feeds
+* remove "Back to blog" link on login page
 
 = 1.0.0 (01/20/2012) =
 * fix in MU for redirect, also if the user have not an account

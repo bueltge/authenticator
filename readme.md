@@ -1,18 +1,11 @@
 # Authenticator
-Contributors: inpsyde, Bueltge, nullbyte  
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6069955  
-Tags: login, authentification, accessible, access, members  
-Requires at least: 1.5  
-Tested up to: 3.5  
-Stable tag: 1.0.0  
-
 This plugin allows you to make your WordPress site accessible to logged in users only.
 
 ## Description
 This plugin allows you to make your WordPress site accessible to logged in users only. In other words to view your site they have to create / have an account in your site and be logged in. No configuration necessary, simply activating - thats all.
 
 ### Requirements
-* WordPress version 1.5 and later; current (01/2012) tested with 3.3* and 3.4-alpha
+* WordPress version 1.5 and later
 * PHP 5.2*
 
 On PHP-CGI setups:
@@ -120,24 +113,4 @@ The plugin comes with various translations, please refer to the [WordPress Codex
 
 
 ## Changelog
-### 1.1.0
-* add http authentification for feeds
-* add settings for reading feed
-* add token auth for feeds
-
-### 1.0.0 (01/20/2012)
-* fix in MU for redirect, also if the user have not an account
-* small rewrite for better codex
-
-### v0.4.1 (04/20/2011)
-* Remove network comment for use different in blogs of WPMultisite
-
-### v0.4.0 (04/11/2011)
-* Bugfix for login without multisite
-* ask for multisite
-* Fix for use plugin WP smaller 3.*
-* Also usable in mu-plugins folder
-
-###  v0.3.0 (04/06/2011)
-* Add check for rights to publish posts to use the plugin on Multisite Install; only users with this rights have acces to the blog of Mutlisite install
-* Small changes on code
+see [Short Changelog on WP Repo](http://wordpress.org/plugins/authenticator/changelog/) or see [commits](https://github.com/bueltge/Authenticator/commits/stable)

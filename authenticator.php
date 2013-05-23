@@ -4,7 +4,7 @@ Plugin Name: Authenticator
 Plugin URI:  http://bueltge.de/authenticator-wordpress-login-frontend-plugin/721/
 Description: This plugin allows you to make your WordPress site accessible to logged in users only. In other words to view your site they have to create / have an account in your site and be logged in. No configuration necessary, simply activating - thats all.
 Author:      Inpsyde GmbH
-Version:     1.1.0-RC1
+Version:     1.1.0
 Author URI:  http://inpsyde.com/
 License:     GPLv3
 Textdomain:  authenticator
@@ -118,11 +118,17 @@ class Authenticator {
 			 ! in_array( $GLOBALS['pagenow'], self :: $pagenows )
 			)
 			add_action( 'template_redirect', array( __CLASS__, 'redirect' ) );
-
+		else
+			wp_enqueue_script(
+				'authenticator-backtoblog',
+				plugin_dir_url( __FILE__ ) . 'js/authenticator.js',
+				array( 'jquery' ),
+				'1.0.0'
+			);
+		
 		add_action( 'admin_init', array( $this, 'init_settings' ) );
 		add_filter( 'authenticator_get_options', array( $this, 'get_options' ) );
 		self::$options = get_option( self::KEY, array() );
-
 	}
 
 	/**
