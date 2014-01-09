@@ -1,5 +1,6 @@
 === Authenticator ===
 Contributors: inpsyde, Bueltge, nullbyte, dnaber-de
+Donate link: http://marketpress.com/
 Tags: login, authentification, accessible, access, members
 Requires at least: 1.5
 Tested up to: 3.9-alpha
@@ -136,6 +137,7 @@ The plugin comes with various translations, please refer to the [WordPress Codex
 * Redefine `$reauth` for redirect [#11](https://github.com/bueltge/Authenticator/issues/11)
 * Apply API Hook for exclude several URLs from redirect [#10](https://github.com/bueltge/Authenticator/issues/10)
 * Add settings for XMLRPC [#9](https://github.com/bueltge/Authenticator/issues/9)
+* Add Composer possibility
 
 = 1.1.0 =
 * add http authentification for feeds
