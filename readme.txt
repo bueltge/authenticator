@@ -5,6 +5,8 @@ Tags: login, authentification, accessible, access, members
 Requires at least: 1.5
 Tested up to: 3.9-alpha
 Stable tag: 1.2.0
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 This plugin allows you to make your WordPress site accessible to logged in users only.
 
@@ -22,10 +24,10 @@ Please give me feedback, contribute and file technical bugs on [GitHub Repo](htt
 = Requirements =
 * WordPress version 1.5 and later; current (01/2012) tested with 3.3* and 3.4-alpha
 * PHP 5.2*
+* Single or Multisite installation
 
 On PHP-CGI setups:
-
-* `mod_setenvif` or `mod_rewrite` (if you want to user HTTP-Authentication for feeds)
+ * `mod_setenvif` or `mod_rewrite` (if you want to user HTTP-Authentication for feeds)
 
 = Installation =
 1. Unpack the download-package
