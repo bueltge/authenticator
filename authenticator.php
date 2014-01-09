@@ -346,8 +346,10 @@ class Authenticator {
 	 */
 	public function disable_xmlrpc() {
 
-		if ( isset( self::$options[ 'disable_xmlrpc' ] ) && 
-		     ! self::authenticate_user() || '1' === self::$options[ 'disable_xmlrpc' ] )
+		if ( ! isset( self::$options[ 'disable_xmlrpc' ] ) )
+			return;
+		
+		if ( ! self::authenticate_user() || '1' === self::$options[ 'disable_xmlrpc' ] )
 			add_filter( 'xmlrpc_enabled', '__return_false' );
 	}
 
