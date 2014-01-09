@@ -155,7 +155,7 @@ class Authenticator_Settings {
 				<?php checked( $current, 'http' ); ?>
 			/>
 			<label for="<?php echo $id . '_http'; ?>">
-				<?php _e( 'HTTP Authentication (Basic) with Username/Password of your Wordpress account.', Authenticator::TEXTDOMAIN ); ?>
+				<?php _e( 'HTTP Authentication (Basic) with Username/Password of your WordPress account.', Authenticator::TEXTDOMAIN ); ?>
 			</label>
 		</p>
 		<p>
