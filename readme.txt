@@ -1,6 +1,5 @@
 === Authenticator ===
 Contributors: inpsyde, Bueltge, nullbyte, dnaber-de
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6069955
 Tags: login, authentification, accessible, access, members
 Requires at least: 1.5
 Tested up to: 3.9-alpha
