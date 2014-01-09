@@ -3,8 +3,8 @@ Contributors: inpsyde, Bueltge, nullbyte, dnaber-de
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6069955
 Tags: login, authentification, accessible, access, members
 Requires at least: 1.5
-Tested up to: 3.5
-Stable tag: 1.0.0
+Tested up to: 3.9-alpha
+Stable tag: 1.2.0
 
 This plugin allows you to make your WordPress site accessible to logged in users only.
 
@@ -127,6 +127,15 @@ The plugin comes with various translations, please refer to the [WordPress Codex
 
 
 == Changelog ==
+= 1.2.0 =
+* Fix the php notice [#15](https://github.com/bueltge/Authenticator/issues/15)
+* Fix [#14][https://github.com/bueltge/Authenticator/issues/14] 
+* Add a removel of backlink in login footer [#8](https://github.com/bueltge/Authenticator/issues/8)
+* Filter for Ajax actions [#12](https://github.com/bueltge/Authenticator/issues/12)
+* Redefine `$reauth` for redirect [#11](https://github.com/bueltge/Authenticator/issues/11)
+* Apply API Hook for exclude several URLs from redirect [#10](https://github.com/bueltge/Authenticator/issues/10)
+* Add settings for XMLRPC [#9](https://github.com/bueltge/Authenticator/issues/9)
+
 = 1.1.0 =
 * add http authentification for feeds
 * add settings for reading feed
