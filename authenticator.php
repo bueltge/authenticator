@@ -157,6 +157,8 @@ class Authenticator {
 
 		add_action( 'init', array( $this, 'protect_upload' ) );
 		add_action( 'init', array( $this, 'disable_xmlrpc' ) );
+		
+		add_action( 'login_footer', array( $this, 'remove_back_to_blog_link' ) );
 	}
 
 	/**
@@ -347,7 +349,6 @@ class Authenticator {
 		if ( isset( self::$options[ 'disable_xmlrpc' ] ) && 
 		     ! self::authenticate_user() || '1' === self::$options[ 'disable_xmlrpc' ] )
 			add_filter( 'xmlrpc_enabled', '__return_false' );
-
 	}
 
 	/**
@@ -359,7 +360,25 @@ class Authenticator {
 
 		return self::$options;
 	}
-
+	
+	/**
+	 * Remove Back to Blog link
+	 * Not useful, only a loop with rewrite
+	 * 
+	 * @since   1.1.0
+	 * @return  void
+	 */
+	public function remove_back_to_blog_link() {
+		?>
+		<script type="text/javascript">
+		var link = document.getElementById( 'backtoblog' ),
+		    nav = document.getElementById( 'nav' );
+		link.parentNode.removeChild( link );
+		//nav.parentNode.removeChild( nav );
+		</script>
+		<?php
+	}
+	
 	/**
 	 * just exit
 	 *
