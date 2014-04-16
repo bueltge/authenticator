@@ -3,7 +3,7 @@ Contributors: inpsyde, Bueltge, nullbyte, dnaber-de
 Donate link: http://marketpress.com/
 Tags: login, authentification, accessible, access, members
 Requires at least: 1.5
-Tested up to: 3.9-alpha
+Tested up to: 3.9-RC1
 Stable tag: 1.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -127,6 +127,9 @@ Good news, this plugin is free for everyone! Since it's released under the GPL, 
 = Translations =
 The plugin comes with various translations, please refer to the [WordPress Codex](http://codex.wordpress.org/Installing_WordPress_in_Your_Language "Installing WordPress in Your Language") for more information about activating the translation. If you want to help to translate the plugin to your language, please have a look at the .pot file which contains all defintions and may be used with a [gettext](http://www.gnu.org/software/gettext/) editor like [Poedit](http://www.poedit.net/) (Windows) or plugin for WordPress [Localization](http://wordpress.org/extend/plugins/codestyling-localization/).
 
+= Localizations =
+* Thanks for the german translation to us self ;)
+* Thanks to [Borisa Djuraskovic](http://www.webhostinghub.com/) for the serbo croation language files
 
 == Changelog ==
 = 1.2.0 =
