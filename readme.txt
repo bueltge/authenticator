@@ -3,7 +3,7 @@ Contributors: inpsyde, Bueltge, nullbyte, dnaber-de
 Donate link: http://marketpress.com/
 Tags: login, authentification, accessible, access, members
 Requires at least: 1.5
-Tested up to: 3.9-alpha
+Tested up to: 3.9
 Stable tag: 1.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -22,7 +22,7 @@ Please give me feedback, contribute and file technical bugs on [GitHub Repo](htt
 
 == Installation ==
 = Requirements =
-* WordPress version 1.5 and later; current (01/2012) tested with 3.3* and 3.4-alpha
+* WordPress version 1.5 and later, see tested up to
 * PHP 5.2*
 * Single or Multisite installation
 
