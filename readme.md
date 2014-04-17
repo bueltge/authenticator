@@ -10,7 +10,7 @@ Have a look at the premium plugins in our [market](http://marketpress.com).
 
 ## Installation
 ### Requirements
-* WordPress version 1.5 and later; current (01/2012) tested with 3.3* and 3.4-alpha
+* WordPress version 1.5 and later; current (01/2012) tested up to 3.9
 * PHP 5.2*
 
 On PHP-CGI setups:
