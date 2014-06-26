@@ -13,7 +13,8 @@ This plugin allows you to make your WordPress site accessible to logged in users
 == Description ==
 This plugin allows you to make your WordPress site accessible to logged in users only. In other words to view your site they have to create / have an account in your site and be logged in. No configuration necessary, simply activating - thats all.
 
-= Made by [Inpsyde](http://inpsyde.com) &middot; We love WordPress =
+**Made by [Inpsyde](http://inpsyde.com) &middot; We love WordPress**
+
 Have a look at the premium plugins in our [market](http://marketpress.com).
 
 = Bugs, technical hints or contribute =
