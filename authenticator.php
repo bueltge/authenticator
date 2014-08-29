@@ -4,7 +4,7 @@
  * Plugin URI:  https://github.com/bueltge/Authenticator
  * Description: This plugin allows you to make your WordPress site accessible to logged in users only. In other words to view your site they have to create / have an account in your site and be logged in. No configuration necessary, simply activating - thats all.
  * Author:      Inpsyde GmbH
- * Version:     1.2.0
+ * Version:     1.2.1-alpha
  * Author URI:  http://inpsyde.com/
  * License:     GPLv2+
  * License URI: ./assets/license.txt
@@ -46,7 +46,7 @@ class Authenticator {
 	 * @since 1.1.0
 	 * @const string
 	 */
-	const VERSION = '1.1.0 Beta 2';
+	const VERSION = '1.2.1-alpha';
 
 	/**
 	 * absolute path to this directory
