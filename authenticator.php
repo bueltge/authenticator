@@ -107,6 +107,11 @@ class Authenticator {
 	public $settings = NULL;
 
 	/**
+	 * @type Authenticator_Protect_Upload
+	 */
+	public $protect_uploads = NULL;
+
+	/**
 	 * get the instance
 	 *
 	 * @since   1.1.0
@@ -180,11 +185,11 @@ class Authenticator {
 
 		// exclude some pagenows ?
 		if ( in_array( $p, self::$exclude_pagenows ) )
-			return;
+			return NULL;
 
 		if ( 'admin-ajax.php' == $p ) {
 			if ( isset( $_REQUEST[ 'action' ] ) && in_array( $_REQUEST[ 'action' ], self::$exclude_ajax_actions ) )
-				return;
+				return NULL;
 			else
 				return 'authenticate_ajax';
 		}
@@ -229,11 +234,11 @@ class Authenticator {
 		$this->protect_uploads = new Authenticator_Protect_Upload();
 	}
 
-	/*
+	/**
 	 * Get redirect to login-page, if user not logged in blogs of network and single install
 	 *
 	 * @since  0.4.2
-	 * @retur  void
+	 * @return  void
 	 */
 	public static function redirect() {
 
@@ -243,11 +248,14 @@ class Authenticator {
 
 			switch ( self::$options[ 'feed_authentication' ] ) {
 				case 'http' :
-					return self::http_auth_feed();
+					self::http_auth_feed();
+					return;
+					break;
 				case 'token' :
 					if ( isset( $_GET[ self::$options[ 'auth_token' ] ] ) )
 						return;
 					self::_exit_403();
+					break;
 				case 'none' :
 				default :
 					# nothing to do
@@ -439,7 +447,7 @@ class Authenticator {
 					$wpdb->blogs,
 				ARRAY_A
 			);
-			foreach ( $blogs as $key => $row ) {
+			foreach ( $blogs as $row ) {
 				$id = ( int ) $row[ 'blog_id' ];
 				delete_blog_option( $id, self::KEY );
 			}
