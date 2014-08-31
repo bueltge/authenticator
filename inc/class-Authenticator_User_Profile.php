@@ -32,7 +32,7 @@ class Authenticator_User_Profile {
 	public function add_custom_profile_fields( $user ) {
 
 		if ( 'token' !== $this->options[ 'feed_authentication' ] ) {
-			return;
+			return NULL;
 		}
 
 		if ( '0' === $this->options[ 'show_token_to_users' ]
