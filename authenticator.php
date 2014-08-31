@@ -107,6 +107,11 @@ class Authenticator {
 	public $settings = NULL;
 
 	/**
+	 * @type Authenticator_Protect_Upload
+	 */
+	public $protect_uploads = NULL;
+
+	/**
 	 * get the instance
 	 *
 	 * @since   1.1.0
