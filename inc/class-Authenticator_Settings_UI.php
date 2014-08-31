@@ -20,7 +20,7 @@ class Authenticator_Settings_UI extends Authenticator_Settings {
 
 	/**
 	 * constructor
-	 * note: it's not neccessarty to call the parrents constructor here
+	 * note: it's not necessary to call the parents constructor here
 	 *
 	 * @return Authenticator_Settings_UI
 	 */
