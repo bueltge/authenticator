@@ -267,6 +267,14 @@ class Authenticator {
 					? TRUE
 					: FALSE;
 
+			// check the current url to avoid infinite loops
+			$login_url = wp_login_url( $_SERVER[ 'REQUEST_URI' ], $reauth );
+			$login_url_parts = parse_url( $login_url );
+			if ( empty( $login_url_parts[ 'path' ] ) )
+				$login_url_parts[ 'path' ] = '/';
+			if ( $login_url_parts[ 'path' ] === $_SERVER[ 'REQUEST_URI' ] )
+				return;
+
 			nocache_headers();
 			wp_redirect(
 				wp_login_url( $_SERVER[ 'REQUEST_URI' ], $reauth ),
