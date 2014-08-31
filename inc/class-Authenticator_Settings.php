@@ -4,9 +4,8 @@
  * handles the settings for the authenticator plugin
  *
  * @package Authenticator
- * @since 1.1.0
+ * @since   1.1.0
  */
-
 class Authenticator_Settings {
 
 	/**
@@ -72,8 +71,8 @@ class Authenticator_Settings {
 			$this->page,
 			$this->section,
 			array(
-				'id'        => 'feed_authentication',
-				'name'      => Authenticator::KEY . '[feed_authentication]',
+				'id'   => 'feed_authentication',
+				'name' => Authenticator::KEY . '[feed_authentication]',
 			)
 		);
 
@@ -127,6 +126,7 @@ class Authenticator_Settings {
 	 * prints the form field
 	 *
 	 * @param array $attr
+	 *
 	 * @return void
 	 */
 	public function auth_checkbox( $attr ) {
@@ -142,7 +142,7 @@ class Authenticator_Settings {
 				id="<?php echo $id . '_none'; ?>"
 				value="none"
 				<?php checked( $current, 'none' ); ?>
-			/>
+				/>
 			<label for="<?php echo $id . '_none'; ?>">
 				<?php _e( 'None (redirect to the login form if user is not logged in)', Authenticator::TEXTDOMAIN ); ?>
 			</label>
@@ -153,7 +153,7 @@ class Authenticator_Settings {
 				id="<?php echo $id . '_http'; ?>"
 				value="http"
 				<?php checked( $current, 'http' ); ?>
-			/>
+				/>
 			<label for="<?php echo $id . '_http'; ?>">
 				<?php _e( 'HTTP Authentication (Basic) with Username/Password of your WordPress account.', Authenticator::TEXTDOMAIN ); ?>
 			</label>
@@ -165,7 +165,7 @@ class Authenticator_Settings {
 				id="<?php echo $id . '_token'; ?>"
 				value="token"
 				<?php checked( $current, 'token' ); ?>
-			/>
+				/>
 			<label for="<?php echo $id . '_token'; ?>">
 				<?php _e( 'Token Authentication.', '' ); ?>
 				<span class="description">
@@ -181,12 +181,12 @@ class Authenticator_Settings {
 				<?php
 				if ( 'token' !== $this->options[ 'feed_authentication' ] ) : ?>
 					disabled="disabled"
-					<?php
+				<?php
 				else : ?>
 					value="<?php echo $this->get_auth_token(); ?>"
-					<?php
+				<?php
 				endif; ?>
-			/>
+				/>
 			<?php
 			if ( 'token' === $this->options[ 'feed_authentication' ] ) : ?>
 				<span id="authenticator_regenerate_token_wrapper">
@@ -195,7 +195,7 @@ class Authenticator_Settings {
 						id="authenticator_regenerate_token"
 						value="1"
 						name="authenticator_regenerate_token"
-					/>
+						/>
 					<label for="authenticator_regenerate_token">
 						<?php _e( 'Regenerate token.', Authenticator::TEXTDOMAIN ); ?>
 					</label>
@@ -203,12 +203,12 @@ class Authenticator_Settings {
 				<span class="description">
 					<?php _e( '(Note everyone will have to update the URL in its feedreader!)', Authenticator::TEXTDOMAIN ); ?>
 				</span>
-				<?php
+			<?php
 			endif; ?>
 		</p>
 		<?php
 		if ( 'token' === $this->options[ 'feed_authentication' ] ) :
-			$example_url = add_query_arg( $this->options[ 'auth_token' ], '', get_bloginfo('rss2_url') );
+			$example_url = add_query_arg( $this->options[ 'auth_token' ], '', get_bloginfo( 'rss2_url' ) );
 			#wrap the urlparameter with a span-element
 			$example_url = preg_replace(
 				'~^(.+[?|&])([a-z0-9]{32})$~',
@@ -222,7 +222,7 @@ class Authenticator_Settings {
 					'<code>' . $example_url . '</code>'
 				); ?>
 			</p>
-			<?php
+		<?php
 		endif;
 	}
 
@@ -230,6 +230,7 @@ class Authenticator_Settings {
 	 * prints a checkbox
 	 *
 	 * @param array $attr
+	 *
 	 * @return void
 	 */
 	public function checkbox( $attr ) {
@@ -244,14 +245,15 @@ class Authenticator_Settings {
 			id="<?php echo $id; ?>"
 			value="1"
 			<?php checked( $current, '1' ); ?>
-		/>
-		<?php
+			/>
+	<?php
 	}
 
 	/**
 	 * prints a text input field
 	 *
 	 * @param array $attr
+	 *
 	 * @return void
 	 */
 	public function textinput( $attr ) {
@@ -267,13 +269,13 @@ class Authenticator_Settings {
 			name="<?php echo $name; ?>"
 			id="<?php echo $id; ?>"
 			value="<?php echo esc_attr( $current ); ?>"
-		/>
+			/>
 		<?php
 		if ( ! empty( $attr[ 'notice' ] ) ) : ?>
 			<p class="description">
 				<?php echo esc_attr( $attr[ 'notice' ] ); ?>
 			</p>
-			<?php
+		<?php
 		endif;
 	}
 
@@ -282,12 +284,14 @@ class Authenticator_Settings {
 	 * validate the input
 	 *
 	 * @param array $request
+	 *
 	 * @return array
 	 */
 	public function validate( $request ) {
 
-		if ( ! isset( $request[ 'feed_authentication' ] ) )
+		if ( ! isset( $request[ 'feed_authentication' ] ) ) {
 			$request[ 'feed_authentication' ] = 'none';
+		}
 
 		switch ( $request[ 'feed_authentication' ] ) {
 
@@ -298,9 +302,10 @@ class Authenticator_Settings {
 
 			case 'token' :
 				if ( empty( $this->options[ 'auth_token' ] )
-				  || isset( $_POST[ 'authenticator_regenerate_token' ] )
-				)
+				     || isset( $_POST[ 'authenticator_regenerate_token' ] )
+				) {
 					$this->generate_auth_token();
+				}
 
 				break;
 
@@ -309,19 +314,21 @@ class Authenticator_Settings {
 				break;
 		}
 
-		if ( ! isset( $request[ 'show_token_to_users' ] ) )
+		if ( ! isset( $request[ 'show_token_to_users' ] ) ) {
 			$request[ 'show_token_to_users' ] = '0';
-		else
+		} else {
 			$request[ 'show_token_to_users' ] = '1';
+		}
 
 		$request[ 'auth_token' ] = $this->get_auth_token();
 
 		$request[ 'cookie_lifetime' ] = ( int ) $request[ 'cookie_lifetime' ];
 
-		if ( empty( $request[ 'disable_xmlrpc' ] ) )
+		if ( empty( $request[ 'disable_xmlrpc' ] ) ) {
 			$request[ 'disable_xmlrpc' ] = '0';
-		else
+		} else {
 			$request[ 'disable_xmlrpc' ] = '1';
+		}
 
 
 		return $request;
@@ -349,8 +356,9 @@ class Authenticator_Settings {
 	 */
 	protected function generate_auth_token() {
 
-		if ( ! is_user_logged_in() )
+		if ( ! is_user_logged_in() ) {
 			return;
+		}
 
 		$user = wp_get_current_user();
 
@@ -389,11 +397,12 @@ class Authenticator_Settings {
 			foreach ( self::$default_options as $k => $v ) {
 				if ( ! isset( $this->options[ $k ] ) ) {
 					$this->options[ $k ] = $v;
-					$update = TRUE;
+					$update              = TRUE;
 				}
 			}
-			if ( $update )
+			if ( $update ) {
 				$this->update_options();
+			}
 
 		}
 	}

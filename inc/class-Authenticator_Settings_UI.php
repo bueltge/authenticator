@@ -1,11 +1,11 @@
 <?php
+
 /**
  * Class to enhance the settings user interface with a bit javascript
  *
  * @package Authenticator
  * @since   1.1.0
  */
-
 class Authenticator_Settings_UI extends Authenticator_Settings {
 
 	// wp nonce key
@@ -70,7 +70,7 @@ class Authenticator_Settings_UI extends Authenticator_Settings {
 			'tokenCheckboxWrapper' => 'authenticator_regenerate_token_wrapper',
 			'tokenButtonId'        => 'authenticator_regenerate_token',
 			'tokenButtonMarkup'    =>
-				  '<a class="button-secondary" href="#" id="authenticator_regenerate_token">'
+				'<a class="button-secondary" href="#" id="authenticator_regenerate_token">'
 				. __( 'Regenerate token.', Authenticator::TEXTDOMAIN )
 				. '</a>',
 			'confirmMessage'       => __( 'Are you shure, you want to create a new token?', Authenticator::TEXTDOMAIN )
@@ -84,13 +84,15 @@ class Authenticator_Settings_UI extends Authenticator_Settings {
 	 */
 	public function regenerate_token() {
 
-		if ( ! defined( 'DOING_AJAX' ) )
+		if ( ! defined( 'DOING_AJAX' ) ) {
 			exit;
+		}
 
 		if ( ! isset( $_POST[ 'nonce' ] )
-		  || ! wp_verify_nonce( $_POST[ 'nonce' ], self::NONCE_KEY )
-		)
+		     || ! wp_verify_nonce( $_POST[ 'nonce' ], self::NONCE_KEY )
+		) {
 			exit;
+		}
 
 		$token = $this->generate_auth_token();
 		# remove the filter from sanitize_option which triggers Authenticator_Settings::validate

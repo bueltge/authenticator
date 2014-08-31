@@ -29,8 +29,9 @@ if ( ! class_exists( 'HTTP_Auth' ) ) {
 		/**
 		 * constructor
 		 *
-		 * @param string $auth_type
 		 * @param string $realm
+		 *
+		 * @internal param string $auth_type
 		 * @return HTTP_Auth
 		 */
 		public function __construct( $realm = 'private area' ) {
@@ -46,13 +47,13 @@ if ( ! class_exists( 'HTTP_Auth' ) ) {
 		 */
 		protected function parse_user_input() {
 
-			if ( isset( $_SERVER[ 'PHP_AUTH_USER' ] ) && isset( $_SERVER['PHP_AUTH_PW' ] ) ) {
+			if ( isset( $_SERVER[ 'PHP_AUTH_USER' ] ) && isset( $_SERVER[ 'PHP_AUTH_PW' ] ) ) {
 				$this->user[ 'name' ] = $_SERVER[ 'PHP_AUTH_USER' ];
 				$this->user[ 'pass' ] = $_SERVER[ 'PHP_AUTH_PW' ];
 
 			} elseif ( isset( $_SERVER[ 'REDIRECT_HTTP_AUTHORIZATION' ] ) # apache may rename our variable
-			        || isset( $_SERVER[ 'HTTP_AUTHORIZATION' ] )
-			        || isset( $_ENV[ 'HTTP_AUTHORIZATION' ] )
+			           || isset( $_SERVER[ 'HTTP_AUTHORIZATION' ] )
+			           || isset( $_ENV[ 'HTTP_AUTHORIZATION' ] )
 			) {
 				/**
 				 * work around for PHP-CGI systems
@@ -64,13 +65,13 @@ if ( ! class_exists( 'HTTP_Auth' ) ) {
 				$auth_header = isset( $_SERVER[ 'HTTP_AUTHORIZATION' ] )
 					? $_SERVER[ 'HTTP_AUTHORIZATION' ]
 					: (
-						isset( $_SERVER[ 'REDIRECT_HTTP_AUTHORIZATION' ] )
-							? $_SERVER[ 'REDIRECT_HTTP_AUTHORIZATION' ]
-							: $_ENV[ 'HTTP_AUTHORIZATION' ]
-					  );
-				$user = array();
+					isset( $_SERVER[ 'REDIRECT_HTTP_AUTHORIZATION' ] )
+						? $_SERVER[ 'REDIRECT_HTTP_AUTHORIZATION' ]
+						: $_ENV[ 'HTTP_AUTHORIZATION' ]
+					);
+				$user        = array();
 				if ( preg_match( '~Basic\s+(.*)$~i', $auth_header, $user ) ) {
-					$user = explode( ':', base64_decode( $user[ 1 ] ) );
+					$user                 = explode( ':', base64_decode( $user[ 1 ] ) );
 					$this->user[ 'name' ] = ! empty( $user[ 0 ] )
 						? trim( $user[ 0 ] )
 						: '';
@@ -100,16 +101,17 @@ if ( ! class_exists( 'HTTP_Auth' ) ) {
 		 */
 		public function auth_required() {
 
-			$protocol = $_SERVER["SERVER_PROTOCOL"];
-			if ( 'HTTP/1.1' != $protocol && 'HTTP/1.0' != $protocol )
+			$protocol = $_SERVER[ "SERVER_PROTOCOL" ];
+			if ( 'HTTP/1.1' != $protocol && 'HTTP/1.0' != $protocol ) {
 				$protocol = 'HTTP/1.0';
+			}
 
 			header( 'WWW-Authenticate: Basic realm="' . $this->realm . '"' );
 			header( $protocol . ' 401 Unauthorized' );
 			echo '<h1>Authentication failed</h1>';
 			exit;
 		}
-	
+
 	} // end class
-	
+
 } // end if class exists
