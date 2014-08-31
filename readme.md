@@ -116,6 +116,7 @@ add_filter( 'authenticator_bypass_feed_auth', '__return_true' );
 
 * `authenticator_exclude_posts` List of post-titles which should remain public, like the follow example source to public the 'Contact'-page.
 ```php
+<?php
 add_action( 'plugins_loaded', function() {
     add_filter( 'authenticator_exclude_posts', function( $titles ) {
         $titles[] = 'Contact'; // here goes the post-title of the post/page you want to exclude
