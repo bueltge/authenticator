@@ -439,7 +439,7 @@ class Authenticator {
 					$wpdb->blogs,
 				ARRAY_A
 			);
-			foreach ( $blogs as $key => $row ) {
+			foreach ( $blogs as $row ) {
 				$id = ( int ) $row[ 'blog_id' ];
 				delete_blog_option( $id, self::KEY );
 			}
