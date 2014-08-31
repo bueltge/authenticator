@@ -119,15 +119,15 @@ The plugin will generate a token automaticaly, when choosing this option. Copy t
 
 * `authenticator_exclude_posts` List of post-titles which should remain public, like the follow example source to public the 'Contact'-page.
 
-	
-	<?php
-	add_action( 'plugins_loaded', function() {
-		add_filter( 'authenticator_exclude_posts', function( $titles ) {
-			$titles[] = 'Contact'; // here goes the post-title of the post/page you want to exclude
-			return $titles;
+		
+		<?php
+		add_action( 'plugins_loaded', function() {
+			add_filter( 'authenticator_exclude_posts', function( $titles ) {
+				$titles[] = 'Contact'; // here goes the post-title of the post/page you want to exclude
+				return $titles;
+			} );
 		} );
-	} );
-	
+		
 
 == Screenshots ==
 1. Authenticator's setting options at Settings → Reading.
