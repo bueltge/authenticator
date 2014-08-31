@@ -2,9 +2,9 @@
 /**
  * Plugin Name: Authenticator
  * Plugin URI:  https://github.com/bueltge/Authenticator
- * Description: This plugin allows you to make your WordPress site accessible to logged in users only. In other words to view your site they have to create / have an account in your site and be logged in. No configuration necessary, simply activating - thats all.
+ * Description: This plugin allows you to make your WordPress site accessible to logged in users only. In other words to view your site they have to create / have an account in your site and be logged in. No configuration necessary, simply activating - that's all.
  * Author:      Inpsyde GmbH
- * Version:     1.2.1-alpha
+ * Version:     1.2.1
  * Author URI:  http://inpsyde.com/
  * License:     GPLv2+
  * License URI: ./assets/license.txt
@@ -46,7 +46,7 @@ class Authenticator {
 	 * @since 1.1.0
 	 * @const string
 	 */
-	const VERSION = '1.2.1-alpha';
+	const VERSION = '1.2.1';
 
 	/**
 	 * absolute path to this directory
@@ -119,8 +119,9 @@ class Authenticator {
 	 */
 	public static function get_instance() {
 
-		if ( ! self::$instance instanceof self )
+		if ( ! self::$instance instanceof self ) {
 			self::$instance = new self;
+		}
 
 		return self::$instance;
 	}
@@ -149,10 +150,11 @@ class Authenticator {
 
 		// check if the user needs to authenticate
 		$authenticate_method = $this->get_authenticate_method();
-		if ( 'redirect' == $authenticate_method )
+		if ( 'redirect' == $authenticate_method ) {
 			add_action( 'template_redirect', array( __CLASS__, $authenticate_method ) );
-		elseif ( 'authenticate_ajax' == $authenticate_method )
+		} elseif ( 'authenticate_ajax' == $authenticate_method ) {
 			add_action( 'admin_init', array( __CLASS__, $authenticate_method ) );
+		}
 
 		# set cookie lifetime
 		add_filter( 'auth_cookie_expiration', array( $this, 'filter_cookie_lifetime' ) );
@@ -163,7 +165,7 @@ class Authenticator {
 
 		add_action( 'init', array( $this, 'protect_upload' ) );
 		add_action( 'init', array( $this, 'disable_xmlrpc' ) );
-		
+
 		add_action( 'login_footer', array( $this, 'remove_back_to_blog_link' ) );
 	}
 
@@ -177,21 +179,24 @@ class Authenticator {
 	 */
 	public function get_authenticate_method() {
 
-		if ( ! isset( $GLOBALS[ 'pagenow' ] ) )
+		if ( ! isset( $GLOBALS[ 'pagenow' ] ) ) {
 			return 'redirect';
+		}
 
 		//shorthand
 		$p = $GLOBALS[ 'pagenow' ];
 
 		// exclude some pagenows ?
-		if ( in_array( $p, self::$exclude_pagenows ) )
+		if ( in_array( $p, self::$exclude_pagenows ) ) {
 			return NULL;
+		}
 
 		if ( 'admin-ajax.php' == $p ) {
-			if ( isset( $_REQUEST[ 'action' ] ) && in_array( $_REQUEST[ 'action' ], self::$exclude_ajax_actions ) )
+			if ( isset( $_REQUEST[ 'action' ] ) && in_array( $_REQUEST[ 'action' ], self::$exclude_ajax_actions ) ) {
 				return NULL;
-			else
+			} else {
 				return 'authenticate_ajax';
+			}
 		}
 
 		return 'redirect';
@@ -243,17 +248,20 @@ class Authenticator {
 	public static function redirect() {
 
 		if ( is_feed() ) {
-			if ( TRUE === apply_filters( 'authenticator_bypass_feed_auth', FALSE ) )
+			if ( TRUE === apply_filters( 'authenticator_bypass_feed_auth', FALSE ) ) {
 				return;
+			}
 
 			switch ( self::$options[ 'feed_authentication' ] ) {
 				case 'http' :
 					self::http_auth_feed();
+
 					return;
 					break;
 				case 'token' :
-					if ( isset( $_GET[ self::$options[ 'auth_token' ] ] ) )
+					if ( isset( $_GET[ self::$options[ 'auth_token' ] ] ) ) {
 						return;
+					}
 					self::_exit_403();
 					break;
 				case 'none' :
@@ -269,7 +277,7 @@ class Authenticator {
 		 */
 		if ( ! self::authenticate_user() && ( ! is_singular() || ! in_array( get_the_title(), self::$exclude_posts ) ) ) {
 			$reauth =
-				   ! current_user_can( 'read' )
+				! current_user_can( 'read' )
 				&& function_exists( 'is_multisite' )
 				&& is_multisite()
 					? TRUE
@@ -296,8 +304,8 @@ class Authenticator {
 		# user must reauth when we are in multisite
 		# and he has not the permission to 'read'
 		$reauth = ! current_user_can( 'read' ) &&
-			function_exists( 'is_multisite' ) &&
-			is_multisite() ? TRUE : FALSE;
+		          function_exists( 'is_multisite' ) &&
+		          is_multisite() ? TRUE : FALSE;
 
 		return is_user_logged_in() && ! $reauth;
 	}
@@ -306,13 +314,14 @@ class Authenticator {
 	 * checks for authenticated requests on the ajax-interface
 	 *
 	 * @wp_hook admin_init
-	 * @since 1.1.0
+	 * @since   1.1.0
 	 * @return void
 	 */
 	public static function authenticate_ajax() {
 
-		if ( ! self::authenticate_user() )
+		if ( ! self::authenticate_user() ) {
 			self::_exit_403();
+		}
 	}
 
 	/**
@@ -325,23 +334,27 @@ class Authenticator {
 
 		$auth = new HTTP_Auth( 'Feed of ' . get_bloginfo( 'name' ) );
 		$user = $auth->get_user();
-		$user = wp_authenticate( $user[ 'name'], $user[ 'pass' ] );
+		$user = wp_authenticate( $user[ 'name' ], $user[ 'pass' ] );
 
-		if ( ! is_a( $user, 'WP_User' ) || ! user_can( $user, 'read' ) )
+		if ( ! is_a( $user, 'WP_User' ) || ! user_can( $user, 'read' ) ) {
 			$auth->auth_required();
+		}
 	}
 
 	/**
 	 * get the cookie lifetime if set
 	 *
 	 * @wp-hook auth_cookie_expiration
+	 *
 	 * @param int $default_lifetime
+	 *
 	 * @return int
 	 */
 	public function filter_cookie_lifetime( $default_lifetime ) {
 
-		if ( ( int ) self::$options[ 'cookie_lifetime' ] > 0 )
+		if ( ( int ) self::$options[ 'cookie_lifetime' ] > 0 ) {
 			return 60 * 60 * 24 * ( int ) self::$options[ 'cookie_lifetime' ];
+		}
 
 		return $default_lifetime;
 	}
@@ -349,18 +362,19 @@ class Authenticator {
 	/**
 	 * disable_xmlrpc dependend to the setting
 	 *
-	 * @since 1.1.0
+	 * @since   1.1.0
 	 * @wp-hook init
 	 * @return void
 	 */
 	public function disable_xmlrpc() {
 
-		if ( ! defined( 'XMLRPC_REQUEST' ) )
+		if ( ! defined( 'XMLRPC_REQUEST' ) ) {
 			return;
+		}
 
 		if ( ! empty( self::$options[ 'disable_xmlrpc' ] )
-			&& '1' === self::$options[ 'disable_xmlrpc' ] )
-		{
+		     && '1' === self::$options[ 'disable_xmlrpc' ]
+		) {
 			add_filter( 'xmlrpc_enabled', '__return_false' );
 		}
 	}
@@ -374,25 +388,25 @@ class Authenticator {
 
 		return self::$options;
 	}
-	
+
 	/**
 	 * Remove Back to Blog link
 	 * Not useful, only a loop with rewrite
-	 * 
+	 *
 	 * @since   1.1.0
 	 * @return  void
 	 */
 	public function remove_back_to_blog_link() {
 		?>
 		<script type="text/javascript">
-		var link = document.getElementById( 'backtoblog' ),
-		    nav = document.getElementById( 'nav' );
-		link.parentNode.removeChild( link );
-		//nav.parentNode.removeChild( nav );
+			var link = document.getElementById('backtoblog'),
+				nav = document.getElementById('nav');
+			link.parentNode.removeChild(link);
+			//nav.parentNode.removeChild( nav );
 		</script>
-		<?php
+	<?php
 	}
-	
+
 	/**
 	 * just exit
 	 *
@@ -401,9 +415,9 @@ class Authenticator {
 	 */
 	public static function _exit_403() {
 
-		$protocol = 'HTTP/1.1' ===  $_SERVER[ 'SERVER_PROTOCOL' ]
-				? 'HTTP/1.1'
-				: 'HTTP/1.0';
+		$protocol = 'HTTP/1.1' === $_SERVER[ 'SERVER_PROTOCOL' ]
+			? 'HTTP/1.1'
+			: 'HTTP/1.0';
 		header( $protocol . ' 403 Forbidden' );
 		exit( '<h1>403 Forbidden</h1>' );
 	}
@@ -412,14 +426,17 @@ class Authenticator {
 	 * autoloader
 	 *
 	 * @since   1.1.0
+	 *
 	 * @param   string $class_name
+	 *
 	 * @return  void
 	 */
 	public static function load_classes( $class_name ) {
 
 		$file_name = dirname( __FILE__ ) . '/inc/class-' . $class_name . '.php';
-		if ( file_exists( $file_name ) )
+		if ( file_exists( $file_name ) ) {
 			require_once $file_name;
+		}
 	}
 
 	/**
@@ -432,11 +449,11 @@ class Authenticator {
 	public static function uninstall() {
 		global $wpdb;
 
-		ignore_user_abort( -1 );
+		ignore_user_abort( - 1 );
 		if ( is_network_admin() && isset( $wpdb->blogs ) ) {
 			$blogs = $wpdb->get_results(
 				'SELECT blog_id FROM ' .
-					$wpdb->blogs,
+				$wpdb->blogs,
 				ARRAY_A
 			);
 			foreach ( $blogs as $row ) {

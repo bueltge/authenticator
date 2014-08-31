@@ -145,6 +145,11 @@ The plugin comes with various translations, please refer to the [WordPress Codex
 * Thanks to [Borisa Djuraskovic](http://www.webhostinghub.com/) for the serbo croation language files
 
 == Changelog ==
+= 1.2.1 (08/31/2014) =
+* Add guard for the constant XMLRPC_REQUEST
+* Fix for XMLRPC bug [#17](https://github.com/bueltge/Authenticator/issues/17)
+* Enhance the readme to exclude posts/pages [#18](https://github.com/bueltge/Authenticator/issues/18)
+
 = 1.2.0 (06/26/2014) =
 * Fix the php notice [#15](https://github.com/bueltge/Authenticator/issues/15)
 * Fix [#14][https://github.com/bueltge/Authenticator/issues/14] 
