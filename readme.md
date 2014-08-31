@@ -10,7 +10,7 @@ Have a look at the premium plugins in our [market](http://marketpress.com).
 
 ## Installation
 ### Requirements
-* WordPress version 1.5 and later; current (01/2012) tested up to 3.9
+* WordPress version 1.5 and later; current (08/2014) tested up to 4.0-RC1
 * PHP 5.2*
 
 On PHP-CGI setups:
@@ -114,8 +114,15 @@ add_filter( 'authenticator_bypass_feed_auth', '__return_true' );
 
 * `authenticator_exclude_ajax_actions` AJAX-Actions (independend of `_nopriv`) which should not be authenticated (remain open for everyone)
 
-* `authenticator_exclude_posts` List of post-titles which should remain public.
-
+* `authenticator_exclude_posts` List of post-titles which should remain public, like the follow example source to public the 'Contact'-page.
+```php
+add_action( 'plugins_loaded', function() {
+    add_filter( 'authenticator_exclude_posts', function( $titles ) {
+        $titles[] = 'Contact'; // here goes the post-title of the post/page you want to exclude
+        return $titles;
+    } );
+} );
+```
 
 ## Other Notes
 ### Bugs, technical hints or contribute

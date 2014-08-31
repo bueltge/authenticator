@@ -40,50 +40,44 @@ or use the installer via backend of WordPress
 = On PHP-CGI setups =
 If you want to use HTTP-Authentication for feeds (available since 1.1.0 as a *optional* feature) you have to update your `.htaccess` file. If [mod_setenvif](http://httpd.apache.org/docs/2.0/mod/mod_setenvif.html) is available, add the following line to your `.htaccess`:
 
-```
-SetEnvIfNoCase ^Authorization$ "(.+)" HTTP_AUTHORIZATION=$1
-```
+	SetEnvIfNoCase ^Authorization$ "(.+)" HTTP_AUTHORIZATION=$1
 
 Otherwise you need [mod_rewrite](http://httpd.apache.org/docs/current/mod/mod_rewrite.html) to be enabled. In this case you have to add the following line to your `.htaccess`:
 
-```
-RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
-```
+	RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
 In a typical Wordpress .htaccess it all looks like:
 
-```
-<IfModule mod_rewrite.c>
-RewriteEngine On
-RewriteBase /
-RewriteRule ^index\.php$ - [L]
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
-RewriteRule . /index.php [L]
-</IfModule>
-```
+
+	<IfModule mod_rewrite.c>
+		RewriteEngine On
+		RewriteBase /
+		RewriteRule ^index\.php$ - [L]
+		RewriteCond %{REQUEST_FILENAME} !-f
+		RewriteCond %{REQUEST_FILENAME} !-d
+		RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+		RewriteRule . /index.php [L]
+	</IfModule>
 
 respectively in a multisite installation:
 
-```
-# BEGIN WordPress
-RewriteEngine On
-RewriteBase /
-RewriteRule ^index\.php$ - [L]
+	# BEGIN WordPress
+	RewriteEngine On
+	RewriteBase /
+	RewriteRule ^index\.php$ - [L]
 
-# uploaded files
-RewriteRule ^files/(.+) wp-includes/ms-files.php?file=$1 [L]
+	# uploaded files
+	RewriteRule ^files/(.+) wp-includes/ms-files.php?file=$1 [L]
 
-RewriteCond %{REQUEST_FILENAME} -f [OR]
-RewriteCond %{REQUEST_FILENAME} -d
-RewriteRule ^ - [L]
+	RewriteCond %{REQUEST_FILENAME} -f [OR]
+	RewriteCond %{REQUEST_FILENAME} -d
+	RewriteRule ^ - [L]
 
-RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
-RewriteRule . index.php [L]
-# END WordPress
-```
-== Settings ==
+	RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+	RewriteRule . index.php [L]
+	# END WordPress
+
+= Settings =
 You can change the settings of Authenticator on Options → Reading. The settings refer to the behaviour of your blog's feeds. Should they be protected by HTTP-Authentication (not all Feed-Readers support this) or by an authentication token, which is simply add to your feed URL as Parameter. The third option is to keep everything in place. So Feed-URLs will be redirected to the login page if the user is not logged in (send no auth-cookie).
 
 If you using token authentication, you can show the token to the blog users on their profile settings page by setting these option.
@@ -93,33 +87,50 @@ Users can gain access to the feed with their Username/Password.
 
 = Token Auth =
 The plugin will generate a token automaticaly, when choosing this option. Copy this token and share it with the people who should have access to your feed. If your token is ```ef05aa961a0c10dce006284213727730``` the feed-URLs looks like so:
-```php
-# main feed
-http://yourblog.com/feed/?ef05aa961a0c10dce006284213727730
 
-#main comment feed
-http://yourblog.com/comments/feed/?ef05aa961a0c10dce006284213727730
+	# main feed
+	http://yourblog.com/feed/?ef05aa961a0c10dce006284213727730
 
-#without permalinks
-http://yourblog.com/?feed=rss2&ef05aa961a0c10dce006284213727730
-```
+	#main comment feed
+	http://yourblog.com/comments/feed/?ef05aa961a0c10dce006284213727730
+
+	#without permalinks
+	http://yourblog.com/?feed=rss2&ef05aa961a0c10dce006284213727730
+	
+= API =
+
+**Filters**
+
+* `authenticator_get_options` Whith this filter you have access to the current authentication-token:
+		
+	<?php
+	$authenticator_options = apply_filters( 'authenticator_get_options', array() );
+	
+
+* `authenticator_bypass_feed_auth` gives you the posibillity to open the feeds for everyone. No authentication will be required then.
+	
+	<?php
+	add_filter( 'authenticator_bypass_feed_auth', '__return_true' );
+	
+
+* `authenticator_exclude_pagenows` Pass an array of `$GLOBALS[ 'pagenow' ]` values to it, to exclude several WordPress pages from redirecting to the login page.
+
+* `authenticator_exclude_ajax_actions` AJAX-Actions (independend of `_nopriv`) which should not be authenticated (remain open for everyone)
+
+* `authenticator_exclude_posts` List of post-titles which should remain public, like the follow example source to public the 'Contact'-page.
+
+	
+	add_action( 'plugins_loaded', function() {
+		add_filter( 'authenticator_exclude_posts', function( $titles ) {
+			$titles[] = 'Contact'; // here goes the post-title of the post/page you want to exclude
+			return $titles;
+		} );
+	} );
+	
 
 == Screenshots ==
 1. Authenticator's setting options at Settings → Reading.
 2. Auth-Token for feeds is displayed on the users profile settings page.
-
-== API ==
-= Filters =
-* ```authenticator_get_options``` Whith this filter you have access to the current authentication-token:
-```php
-<?php
-$authenticator_options = apply_filters( 'authenticator_get_options', array() );
-```
-* ```authenticator_bypass_feed_auth``` gives you the posibillity to open the feeds for everyone. No authentication will be required then.
-```php
-<?php
-add_filter( 'authenticator_bypass_feed_auth', '__return_true' );
-```
 
 == Other Notes ==
 = Licence =
@@ -142,6 +153,7 @@ The plugin comes with various translations, please refer to the [WordPress Codex
 * Apply API Hook for exclude several URLs from redirect [#10](https://github.com/bueltge/Authenticator/issues/10)
 * Add settings for XMLRPC [#9](https://github.com/bueltge/Authenticator/issues/9)
 * Add Composer possibility
+* Update readme to see all information on wp.org Repo
 
 = 1.1.0 (04/17/2014) =
 * add http authentification for feeds
