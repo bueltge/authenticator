@@ -36,7 +36,7 @@ class Authenticator_Settings {
 	public $page = 'reading';
 
 	/**
-	 * section identifyer
+	 * section identifier
 	 *
 	 * @var string
 	 */
@@ -167,13 +167,15 @@ class Authenticator_Settings {
 				<?php checked( $current, 'token' ); ?>
 				/>
 			<label for="<?php echo $id . '_token'; ?>">
-				<?php _e( 'Token Authentication.', '' ); ?>
+				<?php _e( 'Token Authentication.', Authenticator::TEXTDOMAIN ); ?>
 				<span class="description">
 					<?php _e( 'Append the following token as a parameter to the feed URL:', Authenticator::TEXTDOMAIN ); ?>
 				</span>
 			</label>
 			<br />
+			<label for="authenticator_feed_token"><?php _e( 'Token', Authenticator::TEXTDOMAIN ); ?></label>
 			<input
+				name="authenticator_feed_token"
 				id="authenticator_feed_token"
 				size="32"
 				type="text"
@@ -357,7 +359,7 @@ class Authenticator_Settings {
 	protected function generate_auth_token() {
 
 		if ( ! is_user_logged_in() ) {
-			return;
+			return NULL;
 		}
 
 		$user = wp_get_current_user();
