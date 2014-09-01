@@ -255,7 +255,6 @@ class Authenticator {
 			switch ( self::$options[ 'feed_authentication' ] ) {
 				case 'http' :
 					self::http_auth_feed();
-
 					return;
 					break;
 				case 'token' :
