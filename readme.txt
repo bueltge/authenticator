@@ -2,7 +2,7 @@
 Contributors: inpsyde, Bueltge, nullbyte, dnaber-de
 Tags: login, authentification, accessible, access, members
 Requires at least: 1.5
-Tested up to: 4.3
+Tested up to: 4.7
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -12,9 +12,11 @@ This plugin allows you to make your WordPress site accessible to logged in users
 == Description ==
 This plugin allows you to make your WordPress site accessible to logged in users only. In other words to view your site they have to create / have an account in your site and be logged in. No configuration necessary, simply activating - thats all.
 
-**Made by [Inpsyde](http://inpsyde.com) &middot; We love WordPress**
+= Crafted by Inpsyde =
+The team at [Inpsyde](http://inpsyde.com) is engineering the web and WordPress since 2006.
 
-Have a look at the premium plugins in our [market](http://marketpress.com).
+= Donation? =
+You want to donate - we prefer a positive review, not more.
 
 = Bugs, technical hints or contribute =
 Please give me feedback, contribute and file technical bugs on [GitHub Repo](https://github.com/bueltge/Authenticator).
@@ -95,22 +97,22 @@ The plugin will generate a token automaticaly, when choosing this option. Copy t
 
 	#without permalinks
 	http://yourblog.com/?feed=rss2&ef05aa961a0c10dce006284213727730
-	
+
 = API =
 
 **Filters**
 
 * `authenticator_get_options` Whith this filter you have access to the current authentication-token:
-		
+
 	<?php
 	$authenticator_options = apply_filters( 'authenticator_get_options', array() );
-	
+
 
 * `authenticator_bypass_feed_auth` gives you the posibillity to open the feeds for everyone. No authentication will be required then.
-	
+
 	<?php
 	add_filter( 'authenticator_bypass_feed_auth', '__return_true' );
-	
+
 
 * `authenticator_exclude_pagenows` Pass an array of `$GLOBALS[ 'pagenow' ]` values to it, to exclude several WordPress pages from redirecting to the login page.
 
@@ -118,7 +120,7 @@ The plugin will generate a token automaticaly, when choosing this option. Copy t
 
 * `authenticator_exclude_posts` List of post-titles which should remain public, like the follow example source to public the 'Contact'-page.
 
-		
+
 		<?php
 		add_action( 'plugins_loaded', function() {
 			add_filter( 'authenticator_exclude_posts', function( $titles ) {
@@ -126,7 +128,7 @@ The plugin will generate a token automaticaly, when choosing this option. Copy t
 				return $titles;
 			} );
 		} );
-		
+
 
 == Screenshots ==
 1. Authenticator's setting options at Settings → Reading.
@@ -137,11 +139,10 @@ The plugin will generate a token automaticaly, when choosing this option. Copy t
 Good news, this plugin is free for everyone! Since it's released under the GPL, you can use it free of charge on your personal or commercial blog. But if you enjoy this plugin, you can thank me and leave a [small donation](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6069955) for the time I've spent writing and supporting this plugin. And I really don't want to know how many hours of my life this plugin has already eaten ;)
 
 = Translations =
-The plugin comes with various translations, please refer to the [WordPress Codex](http://codex.wordpress.org/Installing_WordPress_in_Your_Language "Installing WordPress in Your Language") for more information about activating the translation. If you want to help to translate the plugin to your language, please have a look at the .pot file which contains all defintions and may be used with a [gettext](http://www.gnu.org/software/gettext/) editor like [Poedit](http://www.poedit.net/) (Windows) or plugin for WordPress [Localization](http://wordpress.org/extend/plugins/codestyling-localization/).
+The plugin comes with various translations, please refer to the [WordPress Codex](http://codex.wordpress.org/Installing_WordPress_in_Your_Language "Installing WordPress in Your Language") for more information about activating the translation. If you want to help to translate the plugin to your language, please have a look at the translation possibility in [this page here](https://translate.wordpress.org/projects/wp-plugins/authenticator).
 
-= Localizations =
-* Thanks for the german translation to us self ;)
-* Thanks to [Borisa Djuraskovic](http://www.webhostinghub.com/) for the serbo croation language files
+= Donation? =
+You want to donate - we prefer a positive review, not more.
 
 == Changelog ==
 = 1.2.1 (08/31/2014) =
@@ -151,7 +152,7 @@ The plugin comes with various translations, please refer to the [WordPress Codex
 
 = 1.2.0 (06/26/2014) =
 * Fix the php notice [#15](https://github.com/bueltge/Authenticator/issues/15)
-* Fix [#14][https://github.com/bueltge/Authenticator/issues/14] 
+* Fix [#14][https://github.com/bueltge/Authenticator/issues/14]
 * Add a removel of backlink in login footer [#8](https://github.com/bueltge/Authenticator/issues/8)
 * Filter for Ajax actions [#12](https://github.com/bueltge/Authenticator/issues/12)
 * Redefine `$reauth` for redirect [#11](https://github.com/bueltge/Authenticator/issues/11)
