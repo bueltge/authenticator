@@ -44,8 +44,6 @@ class Authenticator_Settings {
 
 	/**
 	 * constructor
-	 *
-	 * @return Authenticator_Settings
 	 */
 	public function __construct() {
 
@@ -262,7 +260,7 @@ class Authenticator_Settings {
 
 		$id      = $attr[ 'id' ];
 		$name    = $attr[ 'name' ];
-		$current = 0 == $this->options[ $id ]
+		$current = 0 === $this->options[ $id ]
 			? ''
 			: $this->options[ $id ];
 		?>

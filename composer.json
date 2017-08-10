@@ -2,18 +2,18 @@
 	"name": "bueltge/Authenticator",
 	"description": "This plugin allows you to make your WordPress site accessible to logged in users only.",
 	"license": "GPL 2+",
-	"version": "1.2.1",
+	"version": "1.2.2",
 	"type": "wordpress-plugin",
 	"authors": [
 		{
 			"name": "Inpsyde GmbH",
-			"homepage": "http://inpsyde.com",
+			"homepage": "https://inpsyde.com",
 			"email": "info@inpsyde.com",
 			"role": "Company"
 		},
 		{
 			"name": "Frank Bültge",
-			"homepage": "http://bueltge.de",
+			"homepage": "https://bueltge.de",
 			"email": "frank@bueltge.de",
 			"role": "Developer"
 		},

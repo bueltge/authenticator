@@ -4,7 +4,7 @@
  * Plugin URI:  https://github.com/bueltge/Authenticator
  * Description: This plugin allows you to make your WordPress site accessible to logged in users only. In other words to view your site they have to create / have an account in your site and be logged in. No configuration necessary, simply activating - that's all.
  * Author:      Inpsyde GmbH
- * Version:     1.2.1
+ * Version:     1.2.2
  * Author URI:  http://inpsyde.com/
  * License:     GPLv2+
  * License URI: ./assets/license.txt
@@ -28,7 +28,7 @@ class Authenticator {
 	 * option key
 	 *
 	 * @since 1.1.0
-	 * @const sring
+	 * @const string
 	 */
 	const KEY = 'authenticator_options';
 
@@ -46,7 +46,7 @@ class Authenticator {
 	 * @since 1.1.0
 	 * @const string
 	 */
-	const VERSION = '1.2.1';
+	const VERSION = '1.2.2';
 
 	/**
 	 * absolute path to this directory
@@ -69,7 +69,7 @@ class Authenticator {
 	 *
 	 * @var Authenticator
 	 */
-	private static $instance = NULL;
+	private static $instance = null;
 
 	/**
 	 * Array for pages, there are checked for exclude the redirect
@@ -79,7 +79,7 @@ class Authenticator {
 
 	/**
 	 * Array for posts (post_title), there are checked for exclude the redirect
-	 * Used for custom login formulars, default is empty
+	 * Used for custom login form, default is empty
 	 *
 	 * @since 1.1.0
 	 */
@@ -100,16 +100,16 @@ class Authenticator {
 	protected static $options = array();
 
 	/**
-	 * instance of settins handling class
+	 * instance of settings handling class
 	 *
 	 * @var Authenticator_Settings
 	 */
-	public $settings = NULL;
+	public $settings;
 
 	/**
 	 * @type Authenticator_Protect_Upload
 	 */
-	public $protect_uploads = NULL;
+	public $protect_uploads;
 
 	/**
 	 * get the instance
@@ -130,7 +130,6 @@ class Authenticator {
 	 * Constructor, init redirect on defined hooks
 	 *
 	 * @since   0.4.0
-	 * @return  Authenticator
 	 */
 	public function __construct() {
 
@@ -150,9 +149,9 @@ class Authenticator {
 
 		// check if the user needs to authenticate
 		$authenticate_method = $this->get_authenticate_method();
-		if ( 'redirect' == $authenticate_method ) {
+		if ( 'redirect' === $authenticate_method ) {
 			add_action( 'template_redirect', array( __CLASS__, $authenticate_method ) );
-		} elseif ( 'authenticate_ajax' == $authenticate_method ) {
+		} elseif ( 'authenticate_ajax' === $authenticate_method ) {
 			add_action( 'admin_init', array( __CLASS__, $authenticate_method ) );
 		}
 
@@ -170,12 +169,12 @@ class Authenticator {
 	}
 
 	/**
-	 * get the method to authenticate or NULL
+	 * get the method to authenticate or null
 	 * if no authentication is required
 	 *
 	 * @since 1.1.0
 	 * @global $pagenow
-	 * @return string|NULL
+	 * @return string|null
 	 */
 	public function get_authenticate_method() {
 
@@ -187,16 +186,16 @@ class Authenticator {
 		$p = $GLOBALS[ 'pagenow' ];
 
 		// exclude some pagenows ?
-		if ( in_array( $p, self::$exclude_pagenows ) ) {
-			return NULL;
+		if ( in_array( $p, self::$exclude_pagenows, true ) ) {
+			return null;
 		}
 
-		if ( 'admin-ajax.php' == $p ) {
+		if ( 'admin-ajax.php' === $p ) {
 			if ( isset( $_REQUEST[ 'action' ] ) && in_array( $_REQUEST[ 'action' ], self::$exclude_ajax_actions ) ) {
-				return NULL;
-			} else {
-				return 'authenticate_ajax';
+				return null;
 			}
+
+			return 'authenticate_ajax';
 		}
 
 		return 'redirect';
@@ -274,13 +273,11 @@ class Authenticator {
 		 * Checks if a user is logged in or has rights on the blog in multisite,
 		 * if not redirects them to the login page
 		 */
-		if ( ! self::authenticate_user() && ( ! is_singular() || ! in_array( get_the_title(), self::$exclude_posts ) ) ) {
+		if ( ! self::authenticate_user() && ( ! is_singular() || ! in_array( get_the_title(), self::$exclude_posts, true ) ) ) {
 			$reauth =
 				! current_user_can( 'read' )
 				&& function_exists( 'is_multisite' )
-				&& is_multisite()
-					? TRUE
-					: FALSE;
+				&& is_multisite() ? TRUE : FALSE;
 
 			nocache_headers();
 			wp_redirect(
@@ -293,7 +290,7 @@ class Authenticator {
 
 	/**
 	 * checks if the current visitor is logged in and has the
-	 * permisson to 'read' this blog
+	 * permission to 'read' this blog
 	 *
 	 * @since 1.1.0
 	 * @return bool

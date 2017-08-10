@@ -16,20 +16,19 @@ class Authenticator_Settings_UI extends Authenticator_Settings {
 	 *
 	 * @var Authenticator_Settings
 	 */
-	protected $settings = NULL;
+	protected $settings;
 
 	/**
 	 * constructor
 	 * note: it's not necessary to call the parents constructor here
-	 *
-	 * @return Authenticator_Settings_UI
 	 */
 	public function __construct() {
+
+		Authenticator_Settings::__construct();
 
 		$this->load_options();
 		add_action( 'admin_enqueue_scripts', array( $this, 'load_scripts' ) );
 		add_action( 'wp_ajax_regenerate_token', array( $this, 'regenerate_token' ) );
-
 	}
 
 	/**

@@ -2,7 +2,7 @@
 Contributors: inpsyde, Bueltge, nullbyte, dnaber-de
 Tags: login, authentification, accessible, access, members
 Requires at least: 1.5
-Tested up to: 4.7
+Tested up to: 4.9
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -145,6 +145,9 @@ The plugin comes with various translations, please refer to the [WordPress Codex
 You want to donate - we prefer a positive review, not more.
 
 == Changelog ==
+= 1.2.2 (08/10/2017) =
+* Update readme to solve support questions, it works also under newer WP versions, tested up 4.9-alpha.
+
 = 1.2.1 (08/31/2014) =
 * Add guard for the constant XMLRPC_REQUEST
 * Fix for XMLRPC bug [#17](https://github.com/bueltge/Authenticator/issues/17)

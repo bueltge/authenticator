@@ -10,8 +10,6 @@ class Authenticator_Protect_Upload {
 
 	/**
 	 * Constructor
-	 *
-	 * @return  void
 	 */
 	public function __construct() {
 
@@ -25,7 +23,7 @@ class Authenticator_Protect_Upload {
 	 */
 	public function check_get() {
 
-		if ( '' != $_GET[ 'file' ] ) {
+		if ( '' !== $_GET[ 'file' ] ) {
 			$this->get_file( $_GET[ 'file' ] );
 		}
 	}
@@ -34,8 +32,6 @@ class Authenticator_Protect_Upload {
 	 * Check for access to current file
 	 *
 	 * @param  String $file
-	 *
-	 * @return Access
 	 */
 	public function get_file( $file ) {
 
@@ -63,7 +59,7 @@ class Authenticator_Protect_Upload {
 
 				$status = get_post_meta( $image[ 0 ]->post_parent, '_inpsyde_protect_content', TRUE );
 
-				if ( 1 == $status && ! is_user_logged_in() ) {
+				if ( 1 === $status && ! is_user_logged_in() ) {
 					wp_redirect( wp_login_url( $upload[ 'baseurl' ] . '/' . $the_file ) );
 					die();
 				}
@@ -90,11 +86,11 @@ class Authenticator_Protect_Upload {
 						if ( 0 < count( $meta[ 'sizes' ] ) ) {
 							$filepath = pathinfo( $meta[ 'file' ] );
 
-							if ( $filepath[ 'dirname' ] == $filename[ 'dirname' ] ) {// current path of the thumbnail
+							if ( $filepath[ 'dirname' ] === $filename[ 'dirname' ] ) {// current path of the thumbnail
 
 								foreach ( $meta[ 'sizes' ] as $single_size ) {
 
-									if ( $filename[ 'filename' ] . '.' . $filename[ 'extension' ] == $single_size[ 'file' ] ) {
+									if ( $filename[ 'filename' ] . '.' . $filename[ 'extension' ] === $single_size[ 'file' ] ) {
 
 										if ( post_password_required( $single_image->post_parent ) ) // password for the post is not available
 										{
@@ -103,9 +99,13 @@ class Authenticator_Protect_Upload {
 
 										die( 'dD' );
 
-										$status = get_post_meta( $single_image->post_parent, '_inpsyde_protect_content', TRUE );
+										$status = get_post_meta(
+											$single_image->post_parent,
+											'_inpsyde_protect_content',
+											TRUE
+										);
 
-										if ( 1 == $status && ! is_user_logged_in() ) {
+										if ( 1 === $status && ! is_user_logged_in() ) {
 											wp_redirect( wp_login_url( $upload[ 'baseurl' ] . '/' . $the_file ) );
 											die();
 										}
@@ -161,8 +161,8 @@ class Authenticator_Protect_Upload {
 		$modified_timestamp = strtotime( $last_modified );
 
 		if ( ( $client_last_modified && $client_etag )
-			? ( ( $client_modified_timestamp >= $modified_timestamp ) && ( $client_etag == $etag ) )
-			: ( ( $client_modified_timestamp >= $modified_timestamp ) || ( $client_etag == $etag ) )
+			? ( ( $client_modified_timestamp >= $modified_timestamp ) && ( $client_etag === $etag ) )
+			: ( ( $client_modified_timestamp >= $modified_timestamp ) || ( $client_etag === $etag ) )
 		) {
 			status_header( 304 );
 			exit;

@@ -32,7 +32,6 @@ if ( ! class_exists( 'HTTP_Auth' ) ) {
 		 * @param string $realm
 		 *
 		 * @internal param string $auth_type
-		 * @return HTTP_Auth
 		 */
 		public function __construct( $realm = 'private area' ) {
 
@@ -47,7 +46,7 @@ if ( ! class_exists( 'HTTP_Auth' ) ) {
 		 */
 		protected function parse_user_input() {
 
-			if ( isset( $_SERVER[ 'PHP_AUTH_USER' ] ) && isset( $_SERVER[ 'PHP_AUTH_PW' ] ) ) {
+			if ( isset( $_SERVER[ 'PHP_AUTH_USER' ], $_SERVER[ 'PHP_AUTH_PW' ] ) ) {
 				$this->user[ 'name' ] = $_SERVER[ 'PHP_AUTH_USER' ];
 				$this->user[ 'pass' ] = $_SERVER[ 'PHP_AUTH_PW' ];
 
@@ -101,8 +100,8 @@ if ( ! class_exists( 'HTTP_Auth' ) ) {
 		 */
 		public function auth_required() {
 
-			$protocol = $_SERVER[ "SERVER_PROTOCOL" ];
-			if ( 'HTTP/1.1' != $protocol && 'HTTP/1.0' != $protocol ) {
+			$protocol = $_SERVER['SERVER_PROTOCOL'];
+			if ( 'HTTP/1.1' !== $protocol && 'HTTP/1.0' !== $protocol ) {
 				$protocol = 'HTTP/1.0';
 			}
 
