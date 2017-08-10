@@ -145,6 +145,9 @@ The plugin comes with various translations, please refer to the [WordPress Codex
 You want to donate - we prefer a positive review, not more.
 
 == Changelog ==
+= 1.2.3 (08/10/2017) =
+* Fixed loop about settings that create an fatal error.
+
 = 1.2.2 (08/10/2017) =
 * Update readme to solve support questions, it works also under newer WP versions, tested up 4.9-alpha.
 
