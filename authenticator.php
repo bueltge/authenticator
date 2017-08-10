@@ -46,7 +46,7 @@ class Authenticator {
 	 * @since 1.1.0
 	 * @const string
 	 */
-	const VERSION = '1.2.2';
+	const VERSION = '1.2.3';
 
 	/**
 	 * absolute path to this directory
@@ -164,6 +164,7 @@ class Authenticator {
 
 		add_action( 'init', array( $this, 'protect_upload' ) );
 		add_action( 'init', array( $this, 'disable_xmlrpc' ) );
+		add_action( 'init', array( $this, 'authenticate_rest_api') );
 
 		add_action( 'login_footer', array( $this, 'remove_back_to_blog_link' ) );
 	}
@@ -372,6 +373,23 @@ class Authenticator {
 		     && '1' === self::$options[ 'disable_xmlrpc' ]
 		) {
 			add_filter( 'xmlrpc_enabled', '__return_false' );
+		}
+	}
+
+	/**
+	 * authenticate_rest_api
+	 * @since 	1.2.3
+	 * @wp-hook rest_authentication_errors
+	 * @return WP_Error
+	 */
+	public function authenticate_rest_api() {
+
+		if ( has_filter('rest_authentication_errors') && ! self::authenticate_user() ) {
+			
+			add_action( 'rest_authentication_errors', function() {
+
+				return new WP_Error( 'rest_cannot_access', __( 'Only authenticated users can access the REST API.', 'disable-json-api' ), array( 'status' => rest_authorization_required_code() ) );
+			});
 		}
 	}
 
