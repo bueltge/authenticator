@@ -6,7 +6,6 @@ This plugin allows you to make your WordPress site accessible to logged in users
 This plugin allows you to make your WordPress site accessible to logged in users only. In other words to view your site they have to create / have an account in your site and be logged in. No configuration necessary, simply activating - thats all.
 
 ### Made by [Inpsyde](http://inpsyde.com) &middot; We love WordPress
-Have a look at the premium plugins in our [market](http://marketpress.com).
 
 ## Installation
 ### Requirements
@@ -140,4 +139,4 @@ The plugin comes with various translations, please refer to the [WordPress Codex
 
 
 ## Changelog
-See [commits](https://github.com/bueltge/Authenticator/commits/master) or read the short [version](http://wordpress.org/extend/plugins/authenticator/changelog/)
+See [commits](https://github.com/bueltge/Authenticator/commits/master) or read the short [version](https://wordpress.org/plugins/authenticator/#developers)
