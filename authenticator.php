@@ -388,7 +388,11 @@ class Authenticator {
 			
 			add_action( 'rest_authentication_errors', function() {
 
-				return new WP_Error( 'rest_cannot_access', __( 'Only authenticated users can access the REST API.', 'disable-json-api' ), array( 'status' => rest_authorization_required_code() ) );
+				return new WP_Error(
+					'rest_cannot_access',
+					esc_attr__( 'Only authenticated users can access the REST API.', 'disable-json-api' ),
+					array( 'status' => rest_authorization_required_code() )
+				);
 			});
 		}
 	}
