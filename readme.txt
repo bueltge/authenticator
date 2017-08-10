@@ -147,6 +147,7 @@ You want to donate - we prefer a positive review, not more.
 == Changelog ==
 = 1.2.3 (08/10/2017) =
 * Fixed loop about settings that create an fatal error.
+* Added authentication also for REST API; probs steffenster.
 
 = 1.2.2 (08/10/2017) =
 * Update readme to solve support questions, it works also under newer WP versions, tested up 4.9-alpha.
