@@ -247,6 +247,10 @@ class Authenticator {
 	 */
 	public static function redirect() {
 
+		if ( apply_filters( 'authenticator_bypass', FALSE ) ) {
+			return;
+		}
+
 		if ( is_feed() ) {
 			if ( TRUE === apply_filters( 'authenticator_bypass_feed_auth', FALSE ) ) {
 				return;
