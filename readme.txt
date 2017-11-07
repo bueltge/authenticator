@@ -108,6 +108,12 @@ The plugin will generate a token automaticaly, when choosing this option. Copy t
 	$authenticator_options = apply_filters( 'authenticator_get_options', array() );
 
 
+* `authenticator_bypass` gives you the posibillity to completly bypass the authentication. No authentication will be required then.
+
+	<?php
+	add_filter( 'authenticator_bypass', '__return_true' );
+
+
 * `authenticator_bypass_feed_auth` gives you the posibillity to open the feeds for everyone. No authentication will be required then.
 
 	<?php
@@ -145,6 +151,10 @@ The plugin comes with various translations, please refer to the [WordPress Codex
 You want to donate - we prefer a positive review, not more.
 
 == Changelog ==
+
+= master =
+* New filter to bypass the authenticator ("authenticator_bypass")
+
 = 1.2.3 (08/10/2017) =
 * Fixed loop about settings that create an fatal error.
 * Added authentication also for REST API; probs steffenster.
