@@ -104,6 +104,11 @@ http://yourblog.com/?feed=rss2&ef05aa961a0c10dce006284213727730
 <?php
 $authenticator_options = apply_filters( 'authenticator_get_options', array() );
 ```
+* `authenticator_bypass` gives you the posibillity to completly bypass the authentication. No authentication will be required then.
+```php
+<?php
+add_filter( 'authenticator_bypass', '__return_true' );
+```
 * `authenticator_bypass_feed_auth` gives you the posibillity to open the feeds for everyone. No authentication will be required then.
 ```php
 <?php
