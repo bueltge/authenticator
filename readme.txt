@@ -145,6 +145,10 @@ The plugin comes with various translations, please refer to the [WordPress Codex
 You want to donate - we prefer a positive review, not more.
 
 == Changelog ==
+
+= master =
+* New filter to bypass the authenticator ("authenticator_bypass")
+
 = 1.2.3 (08/10/2017) =
 * Fixed loop about settings that create an fatal error.
 * Added authentication also for REST API; probs steffenster.
