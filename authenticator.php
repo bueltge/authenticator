@@ -285,9 +285,9 @@ class Authenticator {
 					 true ) )
 		) {
 			$reauth =
-				! current_user_can( 'read' )
-				&& function_exists( 'is_multisite' )
-				&& is_multisite() ? TRUE : FALSE;
+				( ! current_user_can( 'read' )
+				  && function_exists( 'is_multisite' )
+				  && is_multisite() );
 
 			nocache_headers();
 			wp_redirect(
