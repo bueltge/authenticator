@@ -8,7 +8,7 @@
  * Author URI:  http://inpsyde.com/
  * License:     GPLv2+
  * License URI: ./assets/license.txt
- * Textdomain:  authenticator
+ * Text Domain:  authenticator
  */
 
 // check for uses in WP
