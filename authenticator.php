@@ -278,7 +278,12 @@ class Authenticator {
 		 * Checks if a user is logged in or has rights on the blog in multisite,
 		 * if not redirects them to the login page
 		 */
-		if ( ! self::authenticate_user() && ( ! is_singular() || ! in_array( get_the_title(), self::$exclude_posts, true ) ) ) {
+		if ( ! self::authenticate_user() &&
+			 ( ! is_singular() || ! in_array(
+					 get_the_title(),
+					 apply_filters( 'authenticator_exclude_posts', self::$exclude_posts),
+					 true ) )
+		) {
 			$reauth =
 				! current_user_can( 'read' )
 				&& function_exists( 'is_multisite' )
