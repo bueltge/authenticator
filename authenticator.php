@@ -192,7 +192,7 @@ class Authenticator {
 		}
 
 		if ( 'admin-ajax.php' === $p ) {
-			if ( isset( $_REQUEST[ 'action' ] ) && in_array( $_REQUEST[ 'action' ], self::$exclude_ajax_actions ) ) {
+			if ( isset( $_REQUEST[ 'action' ] ) && in_array( $_REQUEST[ 'action' ], self::$exclude_ajax_actions, false ) ) {
 				return null;
 			}
 
