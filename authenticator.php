@@ -427,10 +427,8 @@ class Authenticator {
 	public function remove_back_to_blog_link() {
 		?>
 		<script type="text/javascript">
-			var link = document.getElementById('backtoblog'),
-				nav = document.getElementById('nav');
+			var link = document.getElementById('backtoblog');
 			link.parentNode.removeChild(link);
-			//nav.parentNode.removeChild( nav );
 		</script>
 	<?php
 	}
@@ -461,8 +459,9 @@ class Authenticator {
 	 */
 	public static function load_classes( $class_name ) {
 
-		$file_name = dirname( __FILE__ ) . '/inc/class-' . $class_name . '.php';
+		$file_name = __DIR__ . '/inc/class-' . $class_name . '.php';
 		if ( file_exists( $file_name ) ) {
+			/** @noinspection PhpIncludeInspection */
 			require_once $file_name;
 		}
 	}
