@@ -70,7 +70,10 @@ class Authenticator_Settings_UI extends Authenticator_Settings {
 				'<a class="button-secondary" href="#" id="authenticator_regenerate_token">'
 				. __( 'Regenerate token.', Authenticator::TEXTDOMAIN )
 				. '</a>',
-			'confirmMessage'       => __( 'Are you shure, you want to create a new token?', Authenticator::TEXTDOMAIN )
+			'confirmMessage'       => esc_html__(
+				'Are you sure you want to create a new token?',
+				Authenticator::TEXTDOMAIN
+			)
 		);
 	}
 
