@@ -359,6 +359,7 @@ class Authenticator {
 	public function filter_cookie_lifetime( $default_lifetime ) {
 
 		if ( ( int ) self::$options[ 'cookie_lifetime' ] > 0 ) {
+			/** @noinspection SummerTimeUnsafeTimeManipulationInspection */
 			return 60 * 60 * 24 * ( int ) self::$options[ 'cookie_lifetime' ];
 		}
 
