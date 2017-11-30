@@ -6,7 +6,7 @@
  * Author:      Inpsyde GmbH
  * Version:     1.2.3
  * Author URI:  http://inpsyde.com/
- * License:     GPLv2+
+ * License:     GPLv3+
  * License URI: ./assets/license.txt
  * Text Domain:  authenticator
  */
