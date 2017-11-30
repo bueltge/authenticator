@@ -309,9 +309,9 @@ class Authenticator {
 
 		# user must reauth when we are in multisite
 		# and he has not the permission to 'read'
-		$reauth = ! current_user_can( 'read' ) &&
-		          function_exists( 'is_multisite' ) &&
-		          is_multisite() ? TRUE : FALSE;
+		$reauth = ( ! current_user_can( 'read' ) &&
+		            function_exists( 'is_multisite' ) &&
+		            is_multisite() );
 
 		return is_user_logged_in() && ! $reauth;
 	}
@@ -388,9 +388,9 @@ class Authenticator {
 
 	/**
 	 * authenticate_rest_api
-	 * @since 	1.2.3
-	 * @wp-hook rest_authentication_errors
-	 * @return WP_Error
+	 * @since    1.2.3
+	 * @wp-hook  rest_authentication_errors
+	 * @return   void
 	 */
 	public function authenticate_rest_api() {
 
