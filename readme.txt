@@ -3,7 +3,7 @@ Contributors: inpsyde, Bueltge, nullbyte, dnaber-de
 Tags: login, authentification, accessible, access, members
 Requires at least: 1.5
 Tested up to: 4.9
-Stable tag: trunk
+Stable tag: 1.3.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -154,6 +154,11 @@ You want to donate - we prefer a positive review, not more.
 
 = master =
 * New filter to bypass the authenticator ("authenticator_bypass")
+
+= 1.3.0 (2017-11-30) =
+* Fixed a topic on login of users if you exclude posts from the Authenticator.
+* Add new filter hook for bypass the plugin `authenticator_bypass`, see the readme
+* Should now ready for translations from the WordPress translation service.
 
 = 1.2.3 (08/10/2017) =
 * Fixed loop about settings that create an fatal error.
