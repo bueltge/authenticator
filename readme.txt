@@ -152,12 +152,9 @@ You want to donate - we prefer a positive review, not more.
 
 == Changelog ==
 
-= master =
-* New filter to bypass the authenticator ("authenticator_bypass")
-
 = 1.3.0 (2017-11-30) =
 * Fixed a topic on login of users if you exclude posts from the Authenticator.
-* Add new filter hook for bypass the plugin `authenticator_bypass`, see the readme
+* Add new filter hook to bypass the plugin `authenticator_bypass`, see the readme
 * Should now ready for translations from the WordPress translation service.
 
 = 1.2.3 (08/10/2017) =
