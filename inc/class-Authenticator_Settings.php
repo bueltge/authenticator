@@ -103,7 +103,7 @@ class Authenticator_Settings {
 
 		add_settings_field(
 			'disable_xmlrpc',
-			__( 'Disable XMLRPC Interface?', Authenticator::TEXTDOMAIN ),
+			__( 'Disable XML-RPC Interface?', Authenticator::TEXTDOMAIN ),
 			array( $this, 'checkbox' ),
 			$this->page,
 			$this->section,
