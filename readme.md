@@ -107,7 +107,7 @@ https://example.com/?feed=rss2&ef05aa961a0c10dce006284213727730
     $authenticator_options = apply_filters( 'authenticator_get_options', array() );
     ```
 
-* `authenticator_bypass` gives you the possibillity to completely bypass the authentication. No authentication will be required then.
+* `authenticator_bypass` gives you the possibility to completely bypass the authentication. No authentication will be required then.
 
     ```php
     add_filter( 'authenticator_bypass', '__return_true' );

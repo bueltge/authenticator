@@ -106,12 +106,12 @@ The plugin will generate a token automatically when choosing this option. Copy t
 	<?php
 	$authenticator_options = apply_filters( 'authenticator_get_options', array() );
 
-* `authenticator_bypass` gives you the possibillity to completely bypass the authentication. No authentication will be required then.
+* `authenticator_bypass` gives you the possibility to completely bypass the authentication. No authentication will be required then.
 
 	<?php
 	add_filter( 'authenticator_bypass', '__return_true' );
 
-* `authenticator_bypass_feed_auth` gives you the possibillity to open the feeds for everyone. No authentication will be required then.
+* `authenticator_bypass_feed_auth` gives you the possibility to open the feeds for everyone. No authentication will be required then.
 
 	<?php
 	add_filter( 'authenticator_bypass_feed_auth', '__return_true' );
@@ -172,26 +172,26 @@ You want to donate - we prefer a positive review, not more.
 * Apply API Hook for exclude several URLs from redirect [#10](https://github.com/bueltge/Authenticator/issues/10).
 * Add settings for XML-RPC [#9](https://github.com/bueltge/Authenticator/issues/9).
 * Add Composer support.
-* Update readme to see all information on wordpress.org Repo.
+* Update readme to see all information on wordpress.org repo.
 
 = 1.1.0 (04/17/2014) =
 * Add HTTP authentification for feeds.
-* Add settings for reading feed.
+* Add settings for reading the feed.
 * Add token auth for feeds.
 
 = 1.0.0 (01/20/2012) =
-* Fix in MU for redirect, also if the user have not an account.
+* Fix in multisite for redirect, also if the user does not have an account.
 * Small rewrite for better codex.
 
 = v0.4.1 (04/20/2011) =
-* Remove network comment for use different in blogs of WPMultisite.
+* Remove network comment for using different blogs in Multisite.
 
 = v0.4.0 (04/11/2011) =
 * Bugfix for login without multisite.
 * Ask for multisite.
-* Fix for use plugin WP smaller 3.*.
+* Fix for using plugin with WP earlier than 3.*.
 * Also usable in mu-plugins folder.
 
 =  v0.3.0 (04/06/2011) =
-* Add check for rights to publish posts to use the plugin on Multisite Install; only users with this rights have acces to the blog of Mutlisite install.
-* Small changes on code.
+* Add check for rights to publish posts to use the plugin on Multisite Install; only users with this rights have access to the blog of Multisite install.
+* Small changes of code.
