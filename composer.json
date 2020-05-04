@@ -1,8 +1,7 @@
 {
 	"name": "bueltge/Authenticator",
 	"description": "This plugin allows you to make your WordPress site accessible to logged in users only.",
-	"license": "GPL-3.0",
-	"version": "1.3.0",
+	"license": "GPL-3.0-or-later",
 	"type": "wordpress-plugin",
 	"authors": [
 		{
