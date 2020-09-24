@@ -94,10 +94,10 @@ https://example.com/?feed=rss2&ef05aa961a0c10dce006284213727730
 
 ## Screenshots
 1. Authenticator's setting options at Settings → Reading.
-![Screenshot of setting options at Settings → Reading](https://raw2.github.com/bueltge/Authenticator/master/assets/screenshot-1.png)
+![Screenshot of setting options at Settings → Reading](./assets/screenshot-1.png)
 
 2. Auth token for feeds is displayed on the users profile settings page.
-![Screenshot of Auth token for feeds is displayed on the users profile settings page](https://raw2.github.com/bueltge/Authenticator/master/assets/screenshot-2.png)
+![Screenshot of Auth token for feeds is displayed on the users profile settings page](./assets/screenshot-2.png)
 
 ## API
 ### Filters
