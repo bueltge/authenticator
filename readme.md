@@ -5,7 +5,7 @@ This plugin allows you to make your WordPress site accessible to logged in users
 ## Description
 This plugin allows you to make your WordPress site accessible to logged in users only. In other words, to view your site they have to create or have an account on your site and be logged in. No configuration necessary, simply activating - that's all.
 
-### Made by [Inpsyde](http://inpsyde.com) &middot; We love WordPress
+### Made by [Inpsyde](https://inpsyde.com) &middot; We love WordPress
 
 ## Installation
 ### Requirements
@@ -136,7 +136,7 @@ https://example.com/?feed=rss2&ef05aa961a0c10dce006284213727730
 
 ## Other Notes
 ### Bugs, technical hints or contribute
-Please give me feedback, contribute and file technical bugs on [GitHub Repo](https://github.com/bueltge/Authenticator).
+Please give me feedback, contribute and file technical bugs on [GitHub Repo](https://github.com/bueltge/authenticator).
 
 ### Authors, Contributors
 [Contributors Stats](https://github.com/bueltge/Authenticator/graphs/contributors)
@@ -145,7 +145,7 @@ Please give me feedback, contribute and file technical bugs on [GitHub Repo](htt
 Good news, this plugin is free for everyone! Since it's released under the [GPL](./license.txt), you can use it free of charge on your personal or commercial blog.
 
 ### Translations
-The plugin comes with various translations, please refer to the [WordPress Codex](https://codex.wordpress.org/Installing_WordPress_in_Your_Language) for more information about activating the translation. If you want to help to translate the plugin to your language, please have a look at the `.pot` file which contains all defintions and may be used with a [gettext](http://www.gnu.org/software/gettext/) editor like [Poedit](http://www.poedit.net/) (Windows) or plugin for WordPress [Localization](http://wordpress.org/extend/plugins/codestyling-localization/).
+The plugin comes with various translations, please refer to the [WordPress Codex](https://codex.wordpress.org/Installing_WordPress_in_Your_Language) for more information about activating the translation. If you want to help to translate the plugin to your language, please have a look at the [wordpress.org page](https://wordpress.org/plugins/authenticator/), that have a helpful management to contribute to the translations.
 
 ## Change Log
 See [commits](https://github.com/bueltge/Authenticator/commits/master) or read the short [version](https://wordpress.org/plugins/authenticator/#developers)
