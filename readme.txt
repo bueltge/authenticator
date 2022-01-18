@@ -2,7 +2,7 @@
 Contributors: inpsyde, Bueltge, nullbyte, dnaber-de
 Tags: login, authentification, accessible, access, members
 Requires at least: 1.5
-Tested up to: 5.4
+Tested up to: 5.9
 Stable tag: 1.3.0
 equires PHP: 5.2.4
 License: GPLv3 or later
@@ -14,7 +14,7 @@ This plugin allows you to make your WordPress site accessible to logged in users
 This plugin allows you to make your WordPress site accessible to logged in users only. In other words, to view your site they have to create or have an account on your site and be logged in. No configuration necessary, simply activating - that's all.
 
 = Crafted by Inpsyde =
-The team at [Inpsyde](http://inpsyde.com) is engineering the web and WordPress since 2006.
+The team at [Inpsyde](https://inpsyde.com) is engineering the web and WordPress since 2006.
 
 = Donation? =
 You want to donate - we prefer a positive review, not more.
