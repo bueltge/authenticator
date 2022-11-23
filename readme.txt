@@ -2,8 +2,8 @@
 Contributors: inpsyde, Bueltge, nullbyte, dnaber-de
 Tags: login, authentification, accessible, access, members
 Requires at least: 1.5
-Tested up to: 5.9
-Stable tag: 1.3.0
+Tested up to: 6.1
+Stable tag: 1.3.1
 equires PHP: 5.2.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -146,6 +146,9 @@ The plugin comes with various translations, please refer to the [WordPress Codex
 You want to donate - we prefer a positive review, not more.
 
 == Changelog ==
+
+= 1.3.1 (2022-11-22) =
+* Security Fix: Generate valid nonce only for privileged user to prevent privilege elevation.
 
 = 1.3.0 (2017-11-30) =
 * Fixed a topic on login of users if you exclude posts from the Authenticator.
