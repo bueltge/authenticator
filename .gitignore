@@ -3,3 +3,5 @@ vendor/
 .project
 .idea/
 /composer.lock
+/.ddev
+/public
