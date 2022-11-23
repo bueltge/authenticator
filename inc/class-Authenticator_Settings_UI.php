@@ -59,7 +59,9 @@ class Authenticator_Settings_UI extends Authenticator_Settings {
 	protected function get_script_data() {
 
 		return array(
-			'nonce'                => wp_create_nonce( self::NONCE_KEY ),
+			'nonce'                => current_user_can( 'manage_options' )
+				? wp_create_nonce( self::NONCE_KEY )
+				: '',
 			'actionHook'           => 'regenerate_token',
 			'ajaxURL'              => admin_url( 'admin-ajax.php' ),
 			'tokenFieldId'         => 'authenticator_feed_token',
@@ -90,6 +92,7 @@ class Authenticator_Settings_UI extends Authenticator_Settings {
 
 		if ( ! isset( $_POST[ 'nonce' ] )
 		     || ! wp_verify_nonce( $_POST[ 'nonce' ], self::NONCE_KEY )
+		     || ! current_user_can( 'manage_options' )
 		) {
 			exit;
 		}
