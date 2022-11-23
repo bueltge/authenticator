@@ -1,10 +1,10 @@
 === Authenticator ===
 Contributors: inpsyde, Bueltge, nullbyte, dnaber-de
 Tags: login, authentification, accessible, access, members
-Requires at least: 1.5
+Requires at least: 5.0
 Tested up to: 6.1
 Stable tag: 1.3.1
-equires PHP: 5.2.4
+requires PHP: 5.6
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
