@@ -3,8 +3,8 @@ Contributors: inpsyde, Bueltge, nullbyte, dnaber-de
 Tags: login, authentification, accessible, access, members
 Requires at least: 5.0
 Tested up to: 6.1
+Requires PHP: 5.6
 Stable tag: 1.3.1
-requires PHP: 5.6
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -26,7 +26,7 @@ Please give me feedback, contribute and file technical bugs on [GitHub Repo](htt
 == Installation ==
 = Requirements =
 * WordPress version 1.5 and later.
-* PHP 5.2 or later.
+* PHP 5.6 or later.
 * Single or Multisite installation.
 
 On PHP-CGI setups:
@@ -146,7 +146,6 @@ The plugin comes with various translations, please refer to the [WordPress Codex
 You want to donate - we prefer a positive review, not more.
 
 == Changelog ==
-
 = 1.3.1 (2022-11-22) =
 * Security Fix: Generate valid nonce only for privileged user to prevent privilege elevation.
 
@@ -187,15 +186,15 @@ You want to donate - we prefer a positive review, not more.
 * Fix in multisite for redirect, also if the user does not have an account.
 * Small rewrite for better codex.
 
-= v0.4.1 (04/20/2011) =
+= 0.4.1 (04/20/2011) =
 * Remove network comment for using different blogs in Multisite.
 
-= v0.4.0 (04/11/2011) =
+= 0.4.0 (04/11/2011) =
 * Bugfix for login without multisite.
 * Ask for multisite.
 * Fix for using plugin with WP earlier than 3.*.
 * Also usable in mu-plugins folder.
 
-=  v0.3.0 (04/06/2011) =
+= 0.3.0 (04/06/2011) =
 * Add check for rights to publish posts to use the plugin on Multisite Install; only users with this rights have access to the blog of Multisite install.
 * Small changes of code.
