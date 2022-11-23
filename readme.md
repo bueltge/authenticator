@@ -9,8 +9,8 @@ This plugin allows you to make your WordPress site accessible to logged in users
 
 ## Installation
 ### Requirements
-* WordPress version 1.5 and later.
-* PHP 5.2 and later.
+* WordPress version 5.0 and later.
+* PHP 5.6 and later.
 * Single or Multisite installation.
 
 On PHP-CGI setups:
